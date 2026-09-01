@@ -438,6 +438,12 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
   0%,100%{transform:translateX(-50%) scale(1);opacity:.94;}
   50%{transform:translateX(-50%) scale(1.025);opacity:1;}
 }
+/* Gleicher Puls fuer die Mobilfassung, in der die Zahl im Textfluss steht
+   und deshalb nicht um die halbe Breite versetzt werden darf. */
+@keyframes campaign-pulse-mobil{
+  0%,100%{transform:scale(1);opacity:.94;}
+  50%{transform:scale(1.025);opacity:1;}
+}
 .campaign-meter{position:relative;width:100%;height:18px;background:rgba(255,255,255,.18);overflow:hidden;}
 .campaign-meter i{position:absolute;inset:0 auto 0 0;width:0;display:block;background:var(--red);
   transition:width 2.4s cubic-bezier(.2,.72,.22,1);}
@@ -516,8 +522,16 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
   .appeal-in{padding-bottom:38px;}
   .appeal-copy{margin-left:0;}
   .campaign-meta{flex-direction:row;}
-  .campaign-meta p{width:auto;margin:0;}
-  .campaign-meta .pct{left:35%;top:auto;bottom:42px;font-size:clamp(2.6rem,12vw,4rem);}
+  .campaign-meta p{width:auto;margin:0;flex:1 1 auto;}
+  /* Auf dem Desktop steht die Prozentzahl frei in der leeren linken Haelfte
+     der Zeile. Hier laeuft die Standzeile bis nach links durch — die absolut
+     gesetzte Zahl lag darueber und hat sie unlesbar gemacht. Deshalb zurueck
+     in den Textfluss, rechts neben die Zeile. */
+  .campaign-meta .pct{position:static;transform:none;flex:0 0 auto;
+    font-size:clamp(2.2rem,9vw,3.2rem);}
+  /* Die Desktop-Animation pulsiert mit translateX(-50%) — ohne absolute
+     Position wuerde die Zahl damit nach links aus der Zeile springen. */
+  .appeal.progress-in .campaign-meta .pct{animation-name:campaign-pulse-mobil;}
   .appeal-action .btn{min-width:0;}
   .quote .wrap{grid-template-columns:1fr;gap:22px;}
   .quote .q,.quote .attrib,.quote .after{grid-column:1;grid-row:auto;}
@@ -536,7 +550,7 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
   .hero .sub{font-size:1rem;}
   .hero .acts .btn{width:100%;}
   .appeal-action .btn{width:100%;}
-  .campaign-meta{align-items:center;}
+  .campaign-meta{align-items:center;gap:14px;}
   .campaign-meta p{max-width:28ch;}
   .campaign-meter{height:16px;}
   .sec{padding:70px 0;}
