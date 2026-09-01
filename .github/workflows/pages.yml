@@ -1,0 +1,43 @@
+# Liefert den Repo-Inhalt unveraendert an GitHub Pages aus.
+#
+# Noetig, weil unter Settings -> Pages als Quelle "GitHub Actions" eingestellt
+# ist. Ohne Workflow wird dabei nie etwas veroeffentlicht, die Adresse
+# antwortet dann dauerhaft mit 404.
+#
+# Es wird nichts gebaut: die fertigen Seiten liegen bereits im Repo. Der
+# Workflow laedt sie nur hoch.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Zwei gleichzeitige Deployments wuerden sich gegenseitig ueberholen.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      # path: . — das gesamte Repo ist die Website, es gibt keinen Build-Ordner
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
