@@ -519,7 +519,12 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
   .campaign-photo{width:100%;opacity:.42;}
   .appeal::before{background:linear-gradient(90deg,rgba(17,18,21,.97),rgba(17,18,21,.7)),
     linear-gradient(0deg,rgba(17,18,21,.85),transparent);}
-  .appeal-in{padding-bottom:38px;}
+  /* .appeal-in setzt weiter oben padding:40px 0 — die Kurzform loescht die
+     seitliche Einrueckung, die .wrap auf demselben Element vorgibt. Auf dem
+     Desktop faellt das nicht auf, weil die Spalte ohnehin eingerueckt sitzt;
+     auf dem Telefon lief der Block randlos, und der Button war dadurch
+     breiter als die Buttons im Hero. Hier die Einrueckung zurueckholen. */
+  .appeal-in{padding-bottom:38px;padding-left:var(--gut);padding-right:var(--gut);}
   .appeal-copy{margin-left:0;}
   .campaign-meta{flex-direction:row;}
   .campaign-meta p{width:auto;margin:0;flex:1 1 auto;}
@@ -595,8 +600,17 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
   .site-head{overflow:visible}
   .head-in{height:auto;min-height:62px;padding-top:10px;padding-bottom:10px;}
   .head-nav{margin-left:auto;gap:10px;}
+  /* Getauschte Reihenfolge: erst der Button, der Menueknopf aussen am Rand.
+     Nur die Darstellung dreht sich — im Dokument bleibt die Reihenfolge
+     gleich, damit Tastatur und Screenreader unveraendert vorgehen. */
+  .head-nav .btn{order:1}
+  .nav-toggle{order:2}
+  /* align-self:stretch statt fester Hoehe: der Knopf uebernimmt die Hoehe der
+     Zeile, die der Button daneben vorgibt — beide bleiben damit gleich hoch,
+     auch wenn sich die Buttonhoehe je Breite aendert. */
   .nav-toggle{display:inline-flex;align-items:center;justify-content:center;
-    width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:8px;
+    width:44px;align-self:stretch;min-height:42px;
+    padding:0;border:1px solid var(--line);border-radius:8px;
     background:var(--card);color:var(--ink);cursor:pointer;}
   .nav-toggle:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
   /* Die drei Striche: der mittlere ist das span, die aeusseren sind seine

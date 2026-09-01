@@ -86,8 +86,16 @@
   .site-head{overflow:visible}
   .head{height:auto;min-height:76px;padding-top:10px;padding-bottom:10px}
   .nav{margin-left:auto;gap:10px}
+  /* Wie auf der Startseite: Button zuerst, Menueknopf aussen. Nur die
+     Darstellung dreht sich, die Reihenfolge im Dokument bleibt. */
+  .donate{order:1}
+  .nav-toggle{order:2}
+  /* Hoehe nicht fest, sondern die der Zeile — die gibt der Button daneben vor,
+     beide sind damit exakt gleich hoch. Kein Mindestwert: er ist hier hoeher
+     als der Button und wuerde den Knopf wieder ueberstehen lassen. */
   .nav-toggle{display:inline-flex;align-items:center;justify-content:center;
-    width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:8px;
+    width:44px;align-self:stretch;
+    padding:0;border:1px solid var(--line);border-radius:8px;
     background:var(--card);color:var(--ink);cursor:pointer}
   .nav-toggle:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
   .nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{
