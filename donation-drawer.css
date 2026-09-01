@@ -1,0 +1,70 @@
+.donation-drawer{position:fixed;z-index:58;top:126px;right:0;width:min(370px,calc(100vw - 58px));color:#f7f6f2;background:rgba(14,15,18,.96);border:1px solid rgba(255,255,255,.15);border-right:0;border-radius:10px 0 0 10px;box-shadow:-24px 28px 70px -34px rgba(0,0,0,.8);backdrop-filter:blur(20px) saturate(1.15);-webkit-backdrop-filter:blur(20px) saturate(1.15);transform:translateX(100%);transition:transform .45s cubic-bezier(.22,.8,.24,1)}
+.donation-drawer.is-open{transform:translateX(0)}
+.donation-tab,.current-tab{position:absolute;right:100%;width:50px;min-height:132px;padding:14px 0;border:0;border-radius:0 4px 4px 0;box-shadow:-12px 14px 30px -22px #000;display:flex;align-items:center;justify-content:center;font:700 .72rem/1 Archivo,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;writing-mode:vertical-rl;transform:rotate(180deg)}
+.donation-tab{top:26px;background:#24347d;color:#fff}.current-tab{top:158px;background:#f4c84a;color:#171717}
+.donation-tab::before,.current-tab::before{content:none!important;display:none!important}
+/* Aktiv/Inaktiv: der Reiter des geschlossenen Panels tritt zurueck — schmaler und
+   abgedunkelt. Die Reiter haengen an right:100%, das Verschmaelern zieht sie also
+   nach links weg statt vom Drawer. Ohne .is-open ist keiner aktiv: dann greift
+   keine der Regeln und beide bleiben normal. */
+.donation-tab,.current-tab{transition:width .25s ease,background .25s ease,color .25s ease}
+.donation-drawer.is-open.is-current .donation-tab{width:44px;background:#1b2456;color:rgba(255,255,255,.6)}
+.donation-drawer.is-open:not(.is-current) .current-tab{width:44px;background:#ad8c33;color:rgba(23,23,23,.62)}
+/* Kurzer Puls auf dem Spenden-Reiter, ausgeloest per JS beim Klick auf einen
+   Spenden-Button im Seiteninhalt. Einmalig, nicht dauerhaft wie beim Aktuell-Reiter. */
+.donation-tab.is-attention{animation:donation-attention .72s ease-out}
+@keyframes donation-attention{0%{background:#24347d;box-shadow:0 0 0 0 rgba(174,185,245,0)}35%{background:#5367c4;box-shadow:0 0 0 9px rgba(174,185,245,.28)}100%{background:#24347d;box-shadow:0 0 0 18px rgba(174,185,245,0)}}
+/* Aufmerksamkeitspuls auf dem Aktuell-Reiter: Ruhephase, dann Doppelblink alle 4s.
+   Der Grundschatten wird in jedem Keyframe mitgefuehrt, sonst springt er weg.
+   Doppelblink mit leichter Vergroesserung — Bewegung faellt im Augenwinkel auf,
+   eine reine Farbaenderung nicht. Die rotate(180deg) der Grundregel muss in JEDEM
+   Keyframe mitlaufen, sonst kippt die vertikale Beschriftung zurueck. */
+@keyframes current-attention{
+  0%,58%{transform:rotate(180deg) scale(1);background:#f4c84a;box-shadow:-12px 14px 30px -22px #000,0 0 0 0 rgba(255,216,110,0)}
+  67%{transform:rotate(180deg) scale(1.05);background:#ffeaa9;box-shadow:-12px 14px 30px -22px #000,0 0 30px 8px rgba(255,216,110,.85)}
+  76%{transform:rotate(180deg) scale(1);background:#f4c84a;box-shadow:-12px 14px 30px -22px #000,0 0 18px 3px rgba(255,216,110,.3)}
+  85%{transform:rotate(180deg) scale(1.04);background:#ffeaa9;box-shadow:-12px 14px 30px -22px #000,0 0 28px 7px rgba(255,216,110,.75)}
+  100%{transform:rotate(180deg) scale(1);background:#f4c84a;box-shadow:-12px 14px 30px -22px #000,0 0 36px 10px rgba(255,216,110,0)}
+}
+.current-tab{animation:current-attention 4s ease-out .8s infinite}
+/* Puls endet, sobald das Panel offen ist bzw. einmal geoeffnet wurde */
+.current-tab.is-seen,.donation-drawer.is-current .current-tab{animation:none}
+/* Scrollen gehoert in die Panels, nicht in den Drawer: dessen Reiter haengen als
+   position:absolute ausserhalb der Box und wuerden von overflow abgeschnitten. */
+.donation-panel,.current-panel{max-height:calc(100vh - 140px);overflow-y:auto;overscroll-behavior:contain}
+/* Abstandsrhythmus beider Panels: 26/28/24 Rahmen, 8 Kicker, 12 Titel, 20 Block, 9 Label, 14 Provider, 8 Hinweis */
+.donation-panel{min-height:0;padding:26px 28px 24px}
+.donation-panel .mini{margin:0 0 8px;color:#aeb9f5;font-size:.67rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.donation-panel h2{margin:0 0 12px;font:400 2.15rem/1 Anton,Impact,sans-serif;letter-spacing:.02em;text-transform:uppercase}
+.donation-panel .intro,.donation-panel .drawer-intro{margin:0 0 20px;color:rgba(255,255,255,.68);font-size:.86rem;line-height:1.5}
+.donation-panel fieldset{margin:0 0 20px;padding:0;border:0}.donation-panel legend,.donation-panel label.field-label{display:block;margin-bottom:9px;color:rgba(255,255,255,.64);font-size:.66rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase}
+.donation-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}.donation-amounts{grid-template-columns:repeat(4,1fr)}.donation-options input{position:absolute;opacity:0;pointer-events:none}.donation-options label{display:grid;place-items:center;min-height:41px;padding:8px 5px;border:1px solid rgba(255,255,255,.18);border-radius:4px;color:#fff;font-size:.78rem;font-weight:700;cursor:pointer}.donation-options input:checked+label{border-color:#aeb9f5;background:#24347d;box-shadow:inset 0 0 0 1px #aeb9f5}
+.donation-options label{transition:.18s}
+.donation-panel select{width:100%;height:43px;padding:0 38px 0 12px;border:1px solid rgba(255,255,255,.18);border-radius:4px;background:#1e2025;color:#fff;font:600 .8rem Archivo,system-ui,sans-serif}.donation-submit{width:100%;min-height:48px;margin-top:20px;border:0;border-radius:4px;background:#24347d;color:#fff;font:700 .76rem Archivo,system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.donation-submit:hover{background:#314492}
+.donation-provider,.current-panel .donation-provider{display:flex;align-items:center;justify-content:center;gap:9px;margin:14px 0 0;color:rgba(255,255,255,.52);font-size:.62rem;line-height:normal}
+/* Feste Chip-Hoehe statt fester Breite: RaiseNow (2.9:1) und betterplace (6.8:1) bekommen
+   damit dieselbe Schrifthoehe und dieselbe Zeilenhoehe, die Chipbreite folgt dem Logo. */
+.donation-provider img,.current-panel .donation-provider img{display:block;height:22px;width:auto;max-width:130px;padding:3px 6px;border-radius:2px;background:#fff;object-fit:contain}
+/* Kleingedrucktes bleibt kleiner und leiser als die Provider-Zeile darueber.
+   Der zweite Selektor ist noetig, weil .current-panel p (0,1,1) sonst die
+   Fliesstextgroesse .78rem durchsetzt und die Zeile wie ein Absatz aussieht. */
+.donation-security,.current-panel p.donation-security{display:flex;align-items:center;justify-content:center;text-align:center;margin:8px 0 0;color:rgba(255,255,255,.4);font-size:.6rem;line-height:normal}
+/* Das JS setzt per style.min-height die Formularhoehe als Untergrenze. Als
+   Spalten-Flexbox schluckt das Foto die Resthoehe selbst, statt unten Totraum zu
+   lassen. Untergrenze statt fester Hoehe, weil der Drawer mobil schmaler ist,
+   der Text dort oefter umbricht und der Inhalt hoeher wird als das Formular. */
+.current-panel{display:flex;flex-direction:column;overflow-y:auto;background:#18191d;border-radius:9px 0 0 9px}
+/* display:flex ist eine Autorenregel und schlaegt das [hidden]{display:none} des
+   Browser-Stylesheets — ohne diese Zeile bleibt das Panel dauerhaft sichtbar. */
+.current-panel[hidden]{display:none}
+.current-panel>img{display:block;width:100%;height:auto;flex:1 1 150px;min-height:150px;object-fit:cover;border-radius:0}
+.current-panel-body{flex:0 0 auto;padding:26px 28px 24px}.current-panel .mini{margin:0 0 8px;color:#aeb9f5;font-size:.61rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase}.current-panel h2{margin:0 0 12px;color:#fff;font:400 2rem/.98 Anton,Impact,sans-serif;letter-spacing:.01em;text-transform:uppercase}.current-panel p{margin:0 0 20px;color:rgba(255,255,255,.68);font-size:.78rem;line-height:1.55}.current-progress-head{display:flex;justify-content:space-between;margin-bottom:9px;color:#fff;font-size:.7rem;font-weight:700}.current-progress-head strong{color:#f4c84a}.current-progress{height:7px;margin-bottom:20px;overflow:hidden;border-radius:9px;background:#34353a}.current-progress i{display:block;width:30%;height:100%;background:#f4c84a}.current-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}.current-stats span{color:rgba(255,255,255,.47);font-size:.54rem;line-height:1.35;letter-spacing:.05em;text-transform:uppercase}.current-stats b{display:block;margin-bottom:3px;color:#fff;font-size:.78rem;letter-spacing:0;text-transform:none}.current-link{display:flex;align-items:center;justify-content:center;gap:12px;padding:13px 14px;border:1px solid #344aa6;border-radius:4px;background:#2d4094;color:#fff;text-decoration:none;font-size:.67rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase}.current-link span{color:#f4c84a}
+/* Auf dem Telefon nimmt der Drawer zu viel vom Bildschirm und legt sich ueber
+   den Inhalt. Dort faellt er weg; gespendet wird ueber die Schaltflaechen im
+   Seiteninhalt und im Fussbereich. 720px ist die Grenze, an der der Drawer
+   schon vorher sein Telefon-Verhalten angenommen hat (siehe selbstOeffnend()
+   im Seitenskript) — ab Tablet aufwaerts bleibt alles wie bisher.
+   display:none nimmt ihn auch aus der Vorlesereihenfolge. */
+@media(max-width:720px){.donation-drawer{display:none}}
+@media(prefers-reduced-motion:reduce){.donation-drawer{transition:none}.current-tab{animation:none}.donation-tab,.current-tab{transition:none}.donation-options label{transition:none}.donation-tab.is-attention{animation:none;outline:3px solid #aeb9f5;outline-offset:3px}}

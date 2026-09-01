@@ -1,0 +1,1133 @@
+<!doctype html>
+<!-- data-theme haelt die Seite dunkel, unabhaengig von der Systemeinstellung.
+     Ohne das Attribut greift @media (prefers-color-scheme), und auf einem hell
+     eingestellten Telefon kam die Seite hell heraus. -->
+<html lang="de" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111214">
+<meta name="description" content="BK West United Foundation Germany e.V. – Sport, Bildung und Begegnung zwischen Frankfurt am Main und Bakoteh in Gambia.">
+<title>BK West United Foundation Germany e.V. — Sport baut Brücken</title>
+<style>
+/* ===== FONTS ===== */
+@font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url('wp-export/fonts/anton.woff2') format('woff2');}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-display:swap;src:url('wp-export/fonts/archivo.woff2') format('woff2');}
+
+/* ===== TOKENS ===== */
+:root{
+  --paper:#FFFFFF; --sunk:#F4F4F4; --card:#FFFFFF;
+  --ink:#111111; --ink-2:#3A3A3A; --muted:#5F5F5F; --line:#DDDDDD;
+  --red:#E10019; --red-ink:#FFFFFF; --red-hover:#B80015;
+  --yellow:#FFC300; --yellow-ink:#111111;
+  --navy:#1E2A78; --deep:#111111; --on-deep:#F2F2F2;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px -14px rgba(0,0,0,.22);
+  --disp:'Anton',Impact,'Haettenschweiler',sans-serif;
+  --sans:'Archivo',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --maxw:1200px; --gut:24px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#0F0F10; --sunk:#17181A; --card:#17181A;
+    --ink:#F2F2F3; --ink-2:#D2D3D5; --muted:#9A9CA0; --line:#2A2C2F;
+    --red:#FF3B4E; --red-ink:#14060A; --red-hover:#FF6070;
+    --yellow:#FFCE2E; --yellow-ink:#14100A;
+    --navy:#8E9AE8; --deep:#08090A; --on-deep:#EDEDEE;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --paper:#FFFFFF; --sunk:#F4F4F4; --card:#FFFFFF;
+  --ink:#111111; --ink-2:#3A3A3A; --muted:#5F5F5F; --line:#DDDDDD;
+  --red:#E10019; --red-ink:#FFFFFF; --red-hover:#B80015;
+  --yellow:#FFC300; --yellow-ink:#111111;
+  --navy:#1E2A78; --deep:#111111; --on-deep:#F2F2F2;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px -14px rgba(0,0,0,.22);
+}
+/* color-scheme faerbt mit, was der Browser selbst zeichnet: Bildlaufleisten,
+   das Auswahlfeld im Spenden-Drawer, die Standardfarbe des Fensters. */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0F0F10; --sunk:#17181A; --card:#17181A;
+  --ink:#F2F2F3; --ink-2:#D2D3D5; --muted:#9A9CA0; --line:#2A2C2F;
+  --red:#FF3B4E; --red-ink:#14060A; --red-hover:#FF6070;
+  --yellow:#FFCE2E; --yellow-ink:#14100A;
+  --navy:#8E9AE8; --deep:#08090A; --on-deep:#EDEDEE;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -16px rgba(0,0,0,.8);
+}
+
+/* ===== BASE ===== */
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased;text-underline-offset:3px;}
+img{max-width:100%;display:block;}
+h1,h2,h3,h4,p{margin:0;}
+a{color:inherit;}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);}
+
+.disp{font-family:var(--disp);font-weight:400;text-transform:uppercase;
+  line-height:.95;letter-spacing:.005em;text-wrap:balance;}
+
+/* eyebrow with yellow bar — the recurring device */
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:.75rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+.kicker::before{content:"";width:22px;height:4px;background:var(--yellow);flex:none;}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+  font-family:var(--sans);font-weight:700;font-size:.9rem;letter-spacing:.04em;
+  text-transform:uppercase;text-decoration:none;border:2px solid transparent;cursor:pointer;
+  padding:.78em 1.5em;border-radius:0;transition:background .16s,color .16s,border-color .16s;}
+.btn-red{background:var(--red);color:var(--red-ink);}
+.btn-red:hover{background:var(--red-hover);}
+.btn-dark{background:var(--ink);color:var(--paper);}
+.btn-dark:hover{background:var(--red);color:var(--red-ink);}
+.btn-line{background:transparent;color:var(--ink);border-color:var(--ink);}
+.btn-line:hover{background:var(--ink);color:var(--paper);}
+.btn-onphoto{background:transparent;color:#fff;border-color:rgba(255,255,255,.7);}
+.btn-onphoto:hover{background:#fff;color:#111;border-color:#fff;}
+
+/* ===== HEADER ===== */
+.site-head{position:sticky;top:0;z-index:60;background:var(--paper);
+  border-bottom:1px solid var(--line);}
+.head-in{display:flex;align-items:center;gap:20px;height:72px;}
+.mark{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.mark img{width:48px;height:48px;background:transparent;padding:0;border:0;}
+.mark b{font-family:var(--disp);font-size:1.12rem;font-weight:400;text-transform:uppercase;
+  letter-spacing:.02em;line-height:1;display:block;}
+.mark b+span{font-size:.64rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);}
+.head-nav{margin-left:auto;display:flex;align-items:center;gap:26px;}
+.head-nav a:not(.btn){font-size:.82rem;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;text-decoration:none;color:var(--ink);padding:4px 0;
+  border-bottom:3px solid transparent;}
+.head-nav a:not(.btn):hover{border-bottom-color:var(--yellow);}
+/* keep the masthead on one line on phones */
+@media(max-width:560px){
+  .head-in{min-height:62px;gap:12px;}
+  .mark img{width:34px;height:34px;}
+  .mark b{font-size:.95rem;white-space:nowrap;}
+  .mark b+span{display:none;}
+  .head-nav .btn{padding:.62em 1em;font-size:.76rem;white-space:nowrap;}
+}
+
+/* ===== HERO ===== */
+/* Height comes from the copy (with a floor), never from the photo's aspect ratio —
+   the image is absolutely positioned so it always fills exactly, with no dead band. */
+.hero{position:relative;background:#111;overflow:hidden;display:flex;align-items:center;
+  min-height:clamp(340px,50vh,460px);}
+.hero img.bg{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 40%;}
+.hero .veil{position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.84) 0%,rgba(0,0,0,.52) 52%,rgba(0,0,0,.32) 100%);}
+.hero .inner{position:relative;width:100%;padding:48px 0;color:#fff;}
+.hero .claim{font-size:clamp(2.6rem,7.4vw,5.2rem);color:#fff;line-height:1.04;}
+/* inline-block + tight line-height makes the fill hug the caps instead of the
+   font's full ascent/descent box, which is what made the slab look oversized */
+.hero .claim mark{background:var(--yellow);color:#111;display:inline-block;
+  line-height:.74;padding:.26em .13em .06em;}
+.hero .sub{margin-top:20px;max-width:52ch;font-size:1.1rem;line-height:1.55;
+  color:rgba(255,255,255,.92);}
+.hero .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;}
+.hero .kicker{color:rgba(255,255,255,.9);margin-bottom:20px;}
+
+/* ===== NEWS-TICKER ===== */
+.ticker{display:flex;align-items:stretch;overflow:hidden;background:#15161a;color:var(--on-deep);
+  border-top:1px solid rgba(255,255,255,.09);border-bottom:1px solid rgba(255,255,255,.09);}
+.ticker-label{flex:0 0 auto;display:flex;align-items:center;margin:0;padding:0 20px;
+  background:var(--yellow);color:var(--yellow-ink);font:700 .72rem/1 var(--sans);
+  letter-spacing:.12em;text-transform:uppercase;}
+/* Die Maske laesst die Meldungen an beiden Raendern ausblenden statt hart abzuschneiden */
+.ticker-view{flex:1 1 auto;min-width:0;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 46px,#000 calc(100% - 46px),transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 46px,#000 calc(100% - 46px),transparent);}
+/* Die Liste enthaelt jede Meldung zweimal; -50% schiebt genau einen Satz weiter, dadurch nahtlos */
+.ticker-track{display:flex;width:max-content;margin:0;padding:0;list-style:none;
+  animation:ticker-run 53s linear infinite;}
+.ticker-track li{display:flex;align-items:center;padding:15px 0;white-space:nowrap;
+  font-size:1rem;color:rgba(242,242,242,.85);}
+.ticker-track li::after{content:"";flex:0 0 auto;width:5px;height:5px;margin:0 32px;
+  border-radius:50%;background:var(--yellow);opacity:.85;}
+.ticker-track b{margin-right:14px;color:#fff;font-weight:700;font-size:.8rem;
+  letter-spacing:.12em;text-transform:uppercase;}
+@keyframes ticker-run{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker:hover .ticker-track,.ticker:focus-within .ticker-track{animation-play-state:paused;}
+@media(max-width:720px){.ticker-label{padding:0 13px;font-size:.72rem;letter-spacing:.12em}
+  .ticker-track li{font-size:.9rem}.ticker-track li::after{margin:0 22px}}
+@media(prefers-reduced-motion:reduce){.ticker-track{animation:none}.ticker-view{overflow-x:auto}}
+/* ===== APPEAL BAR ===== */
+.appeal{background:var(--sunk);border-bottom:1px solid var(--line);}
+.appeal-in{display:grid;grid-template-columns:1.35fr 1fr;gap:44px;align-items:center;
+  padding:40px 0;}
+.appeal h2{font-size:clamp(1.5rem,3.4vw,2.15rem);margin-top:12px;}
+.appeal p{margin-top:12px;color:var(--ink-2);max-width:56ch;font-size:.98rem;}
+.gauge-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+.gauge-top .lab{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);}
+.gauge-top .pct{font-family:var(--disp);font-size:2.6rem;line-height:1;color:var(--red);
+  font-variant-numeric:tabular-nums;}
+.gauge{height:16px;background:var(--paper);border:1px solid var(--line);position:relative;}
+.gauge i{position:absolute;inset:0 auto 0 0;width:35%;background:var(--red);display:block;}
+.gauge-note{margin-top:12px;font-size:.85rem;color:var(--muted);}
+.appeal .btn{margin-top:16px;width:100%;}
+@media(max-width:860px){.appeal-in{grid-template-columns:1fr;gap:26px;}}
+
+/* ===== SECTIONS ===== */
+.sec{padding:84px 0;}
+.sec-sunk{background:var(--sunk);}
+.sec-head{max-width:62ch;margin-bottom:42px;}
+.sec-head h2{font-size:clamp(2rem,5vw,3.2rem);margin-top:16px;}
+.sec-head p{margin-top:16px;color:var(--muted);max-width:58ch;}
+.sec-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+.sec-head.center .kicker{justify-content:center;}
+
+/* ===== INTRO SPLIT ===== */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.split .txt p{color:var(--ink-2);}
+.split .txt p+p{margin-top:1em;}
+.split .txt h2{font-size:clamp(1.9rem,4.4vw,2.9rem);margin-top:16px;margin-bottom:20px;}
+.split figure{margin:0;position:relative;}
+.split figure img{width:100%;aspect-ratio:4/3;object-fit:cover;}
+.split figure figcaption{position:absolute;left:0;bottom:0;background:var(--yellow);
+  color:var(--yellow-ink);font-size:.72rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;padding:8px 14px;}
+@media(max-width:880px){.split{grid-template-columns:1fr;gap:30px;}}
+
+/* ===== CARD GRID (projects / news) ===== */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+@media(max-width:900px){.cards{grid-template-columns:1fr;}}
+.card{background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;
+  box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;}
+.card:hover{transform:translateY(-4px);box-shadow:0 20px 40px -20px rgba(0,0,0,.35);}
+.card .ph{overflow:hidden;position:relative;}
+.card .ph img{width:100%;aspect-ratio:16/10;object-fit:cover;transition:transform .5s;}
+.card:hover .ph img{transform:scale(1.05);}
+.card .tag{position:absolute;top:0;left:0;background:var(--red);color:var(--red-ink);
+  font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:7px 12px;}
+.card .body{padding:24px 24px 26px;display:flex;flex-direction:column;gap:12px;flex:1;}
+.card h3{font-family:var(--disp);font-weight:400;text-transform:uppercase;line-height:1;
+  font-size:1.55rem;letter-spacing:.01em;}
+.card p{color:var(--muted);font-size:.95rem;flex:1;margin:0;}
+.card .more{font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--red);text-decoration:none;display:inline-flex;gap:.45em;align-items:center;}
+.card .more:hover{gap:.75em;}
+
+/* ===== THREE ACTION CARDS (Sporthilfe device) ===== */
+.acts3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);}
+.act{padding:38px 32px 36px;display:flex;flex-direction:column;gap:14px;
+  border-right:1px solid var(--line);background:var(--card);}
+.act:last-child{border-right:0;}
+.act .n{font-family:var(--disp);font-size:2.9rem;line-height:1;color:var(--red);
+  font-variant-numeric:tabular-nums;}
+.act h3{font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:1.5rem;
+  line-height:1;}
+.act p{color:var(--muted);font-size:.94rem;flex:1;}
+.act .btn{align-self:flex-start;}
+@media(max-width:880px){.acts3{grid-template-columns:1fr;}
+  .act{border-right:0;border-bottom:1px solid var(--line);}
+  .act:last-child{border-bottom:0;}}
+
+/* ===== QUOTE BAND ===== */
+.quote{background:var(--deep);color:var(--on-deep);padding:80px 0;}
+.quote .q{font-family:var(--disp);text-transform:uppercase;font-size:clamp(2rem,5.6vw,3.8rem);
+  line-height:1.06;max-width:22ch;color:#fff;}
+.quote .q mark{background:var(--yellow);color:#111;display:inline-block;
+  line-height:.78;padding:.12em .12em .05em;}
+.quote .attrib{margin-top:24px;font-size:.76rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(242,242,242,.6);}
+.quote .after{margin-top:22px;max-width:54ch;color:rgba(242,242,242,.85);}
+
+/* ===== STATS ===== */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+.stat{padding:30px 22px 30px 0;border-right:1px solid var(--line);}
+.stat:last-child{border-right:0;}
+.stat .n{font-family:var(--disp);font-size:3rem;line-height:1;color:var(--ink);
+  font-variant-numeric:tabular-nums;display:block;}
+.stat .n em{font-style:normal;color:var(--red);}
+.stat .t{display:block;margin-top:10px;color:var(--muted);font-size:.85rem;line-height:1.45;}
+@media(max-width:860px){.stats{grid-template-columns:1fr 1fr;}
+  .stat:nth-child(2){border-right:0;}
+  .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--line);}}
+
+/* ===== GALLERY ===== */
+.grid6{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.grid6 figure{margin:0;overflow:hidden;}
+.grid6 img{width:100%;aspect-ratio:1/1;object-fit:cover;transition:transform .5s;}
+.grid6 figure:hover img{transform:scale(1.05);}
+.grid6 .w2{grid-column:span 2;}
+.grid6 .w2 img{aspect-ratio:2/1;}
+@media(max-width:760px){.grid6{grid-template-columns:repeat(2,1fr);}
+  .grid6 .w2{grid-column:span 2;}}
+
+/* ===== TIERS ===== */
+.tiers{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+@media(max-width:800px){.tiers{grid-template-columns:1fr;}}
+.tier{background:var(--card);border:1px solid var(--line);padding:34px 32px;
+  display:flex;flex-direction:column;gap:16px;box-shadow:var(--shadow);}
+.tier.hi{border-color:var(--red);border-width:2px;}
+.tier .amt{font-family:var(--disp);font-size:3.6rem;line-height:1;
+  font-variant-numeric:tabular-nums;}
+.tier .amt small{font-family:var(--sans);font-size:.86rem;font-weight:600;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.08em;margin-left:.4em;}
+.tier ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;flex:1;}
+.tier li{padding-left:20px;position:relative;font-size:.95rem;color:var(--ink-2);}
+.tier li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:3px;
+  background:var(--yellow);}
+.fineprint{margin-top:26px;font-size:.88rem;color:var(--muted);max-width:74ch;line-height:1.6;}
+.fineprint a{color:var(--red);font-weight:700;text-decoration:none;}
+.fineprint a:hover{text-decoration:underline;}
+
+/* ===== BANK DETAILS ===== */
+.give{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;}
+@media(max-width:1000px){.give{grid-template-columns:1fr;}}
+.give-col{background:var(--card);border:1px solid var(--line);padding:32px;box-shadow:var(--shadow);}
+.give-col h3{font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:1.5rem;
+  line-height:1;margin-bottom:22px;padding-bottom:14px;border-bottom:4px solid var(--yellow);
+  display:inline-block;}
+.dl{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;font-size:.95rem;}
+.dl dt{color:var(--muted);font-weight:600;font-size:.8rem;letter-spacing:.06em;
+  text-transform:uppercase;padding-top:.15em;}
+.dl dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:.02em;
+  word-break:break-word;}
+.dl dd a{color:var(--red);text-decoration:none;}
+.dl dd a:hover{text-decoration:underline;}
+/* Die Spalten tragen unterschiedlich lange Angaben, sonst haengt jeder Button
+   dort, wo seine eigene Liste endet. Als Spalten-Flexbox sitzt er unten,
+   align-self:stretch gibt beiden dieselbe Breite. */
+.give-col{display:flex;flex-direction:column;}
+.give-col .dl{margin-bottom:24px;}
+.give-col .btn{margin-top:auto;align-self:stretch;}
+.receipt{margin-top:26px;border-left:5px solid var(--yellow);background:var(--sunk);
+  padding:22px 26px;font-size:.92rem;color:var(--muted);line-height:1.6;}
+.sec-sunk .receipt{background:var(--paper);}
+.receipt b{color:var(--ink);}
+
+/* ===== FOOTER ===== */
+.site-foot{background:var(--deep);color:rgba(242,242,242,.75);padding:60px 0 0;}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:44px;padding-bottom:44px;}
+.foot-grid h4{font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:#fff;margin-bottom:16px;padding-bottom:8px;
+  border-bottom:3px solid var(--yellow);display:inline-block;}
+.site-foot a{color:rgba(242,242,242,.8);text-decoration:none;}
+.site-foot a:hover{color:#fff;text-decoration:underline;}
+.foot-mark{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.foot-mark img{width:54px;height:54px;background:transparent;padding:0;}
+.foot-lead{max-width:36ch;font-size:.94rem;}
+.foot-cta{margin-top:20px;}
+.foot-mark b{font-family:var(--disp);font-weight:400;text-transform:uppercase;
+  font-size:1.2rem;line-height:1.05;color:#fff;}
+.site-foot address{font-style:normal;line-height:1.75;font-size:.92rem;}
+.site-foot ul{list-style:none;margin:0;padding:0;line-height:2.1;font-size:.92rem;}
+.foot-end{border-top:1px solid rgba(242,242,242,.16);padding:20px 0;display:flex;
+  justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:.8rem;
+  color:rgba(242,242,242,.5);}
+@media(max-width:800px){.foot-grid{grid-template-columns:1fr;gap:30px;}}
+
+/* ===== MOTION ===== */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+.rv.in{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .rv{opacity:1;transform:none;transition:none;}
+  .card:hover,.card:hover .ph img,.grid6 figure:hover img{transform:none;}
+}
+
+/* ===== SOFT REFINEMENT =====
+   Keeps the direct, sporting character while adding air, depth and hierarchy. */
+:root{
+  --paper:#FAF9F6; --sunk:#F0EFEB; --card:#FFFFFF;
+  --ink:#171717; --ink-2:#41413F; --muted:#6D6C68; --line:#DCDAD4;
+  --red:#D91F2B; --red-hover:#B91420; --yellow:#F4C84A;
+  --shadow:0 18px 48px -32px rgba(20,20,18,.34);
+  --maxw:1160px; --gut:clamp(20px,4vw,40px);
+}
+:root[data-theme="light"]{
+  --paper:#FAF9F6; --sunk:#F0EFEB; --card:#FFFFFF;
+  --ink:#171717; --ink-2:#41413F; --muted:#6D6C68; --line:#DCDAD4;
+  --red:#D91F2B; --red-hover:#B91420; --yellow:#F4C84A;
+  --shadow:0 18px 48px -32px rgba(20,20,18,.34);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#111214; --sunk:#191A1D; --card:#1D1E21;
+    --ink:#F1F0EC; --ink-2:#D0CFCA; --muted:#A3A19B; --line:#313237;
+    --red:#F04450; --red-hover:#FF5B66; --yellow:#EBC653;
+    --shadow:0 20px 52px -30px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111214; --sunk:#191A1D; --card:#1D1E21;
+  --ink:#F1F0EC; --ink-2:#D0CFCA; --muted:#A3A19B; --line:#313237;
+  --red:#F04450; --red-hover:#FF5B66; --yellow:#EBC653;
+  --shadow:0 20px 52px -30px rgba(0,0,0,.8);
+}
+body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
+.disp{letter-spacing:.012em;}
+.kicker{font-size:.71rem;letter-spacing:.16em;}
+.kicker::before{width:18px;height:3px;border-radius:3px;}
+
+.btn{min-height:46px;padding:.78em 1.35em;border-radius:4px;letter-spacing:.075em;
+  box-shadow:none;transition:background .2s,color .2s,border-color .2s,transform .2s;}
+.btn:hover{transform:translateY(-1px);}
+
+.site-head{background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:blur(20px) saturate(1.25);
+  -webkit-backdrop-filter:blur(20px) saturate(1.25);border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent);
+  box-shadow:0 10px 34px -30px rgba(0,0,0,.55);overflow:hidden;isolation:isolate;}
+.site-head::before,.site-head::after{content:"";position:absolute;inset-block:0;width:min(34vw,480px);z-index:0;pointer-events:none;opacity:.34;}
+.site-head::before{left:0;border-radius:0 4px 4px 0;background:linear-gradient(105deg,#111 0 32%,#d61f2c 32% 65%,#f2c744 65% 100%);-webkit-mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.72) 34%,transparent 100%);mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.72) 34%,transparent 100%);}
+.site-head::after{right:0;border-radius:4px 0 0 4px;background:linear-gradient(75deg,#ce1126 0 28%,#fff 28% 32%,#0c1c8c 32% 60%,#fff 60% 64%,#3a7728 64% 100%);-webkit-mask-image:linear-gradient(270deg,#000 0%,rgba(0,0,0,.72) 34%,transparent 100%);mask-image:linear-gradient(270deg,#000 0%,rgba(0,0,0,.72) 34%,transparent 100%);}
+.head-in{position:relative;z-index:1;}
+.head-in{height:98px;}
+.mark{gap:12px;align-items:center;}
+.mark img{width:74px;height:74px;flex:none;}
+.mark>span{display:flex;flex-direction:column;justify-content:center;gap:5px;min-height:74px;}
+.mark b{display:block;line-height:1.05;letter-spacing:normal;}
+.mark b+span{display:block;line-height:1;margin:0;}
+.head-nav{gap:14px;padding:0;background:transparent;}
+.nav-links{display:flex;align-items:center;gap:4px;padding:6px;border:1px solid color-mix(in srgb,var(--line) 78%,transparent);
+  border-radius:999px;background:color-mix(in srgb,var(--sunk) 76%,transparent);}
+.head-nav a:not(.btn){padding:10px 13px;border:0;border-radius:999px;font-size:.73rem;letter-spacing:.085em;
+  position:relative;transition:background .2s,color .2s;}
+.head-nav a:not(.btn)::after{display:none;}
+.head-nav a:not(.btn):hover{background:var(--card);color:var(--ink);}
+.head-nav .btn{min-height:46px;padding:.78em 1.35em;border-radius:4px;background:var(--red);
+  color:#fff;border-color:var(--red);box-shadow:0 8px 20px -14px color-mix(in srgb,var(--red) 70%,transparent);}
+.head-nav .btn:hover{background:var(--red-hover);color:#fff;border-color:var(--red-hover);}
+
+.hero{min-height:clamp(640px,84vh,860px);}
+.hero img.bg{object-position:center 50%;filter:saturate(.82) contrast(.96);}
+.hero .veil{background:linear-gradient(90deg,rgba(24,16,12,.88) 0%,rgba(24,16,12,.64) 43%,rgba(24,16,12,.16) 75%),
+  linear-gradient(0deg,rgba(20,14,11,.32),transparent 48%);}
+.hero .inner{padding:88px 0 96px;}
+.hero .claim{font-size:clamp(3.25rem,6.3vw,5.65rem);line-height:1.08;max-width:none;}
+.hero .claim-line{display:block;white-space:nowrap;}
+.hero .claim mark{position:relative;z-index:0;padding:.025em .02em .035em;margin-top:.055em;background:transparent;color:#fff;}
+.hero .claim mark::after{content:"";position:absolute;z-index:-1;left:-.02em;right:-.05em;bottom:.02em;
+  height:.09em;border-radius:2px;background:var(--red);transform:rotate(-1deg);}
+.hero .sub{max-width:49ch;font-size:1.08rem;line-height:1.7;color:rgba(255,255,255,.86);}
+.hero .acts{margin-top:34px;gap:14px;}
+.hero .kicker{margin-bottom:26px;}
+
+.appeal{position:relative;isolation:isolate;overflow:hidden;background:#111215;color:#fff;border:0;
+  box-shadow:inset 0 1px rgba(255,255,255,.04);}
+.campaign-photo{position:absolute;z-index:-2;inset:0 auto 0 -2%;width:52%;height:100%;object-fit:cover;
+  object-position:center 50%;filter:saturate(.82) contrast(1.03);}
+.appeal::before{content:"";position:absolute;z-index:-1;inset:0;background:
+  linear-gradient(270deg,#111215 0%,#111215 49%,rgba(17,18,21,.9) 58%,rgba(17,18,21,.24) 100%),
+  linear-gradient(0deg,rgba(17,18,21,.34),transparent 60%);}
+.appeal-in{display:block;padding-top:clamp(62px,7vw,88px);padding-bottom:46px;}
+.appeal-copy{max-width:610px;margin-left:auto;}
+.appeal h2{line-height:1.08;color:#fff;}
+.appeal p{color:rgba(255,255,255,.72);}
+.appeal .kicker{color:rgba(255,255,255,.68);}
+.appeal-action{margin-top:28px;}
+.appeal-action .btn{min-width:245px;background:#fff;color:#111;border-color:#fff;}
+.appeal-action .btn:hover{background:#E7E6E2;color:#111;border-color:#E7E6E2;}
+.campaign-meta{display:flex;flex-direction:row-reverse;align-items:end;justify-content:space-between;gap:24px;padding-bottom:22px;}
+.campaign-meta p{margin:0 0 0 auto;width:min(610px,50%);max-width:none;font-size:.85rem;letter-spacing:.02em;}
+.campaign-meta .pct{position:absolute;z-index:2;left:35%;top:auto;bottom:48px;transform:translateX(-50%);
+  font-family:var(--disp);font-size:clamp(2.8rem,4.5vw,4.6rem);line-height:.8;color:#fff;
+  font-variant-numeric:tabular-nums;white-space:nowrap;text-shadow:0 4px 28px rgba(0,0,0,.55);
+  animation:none;}
+.appeal.progress-in .campaign-meta .pct{animation:campaign-pulse 4.5s ease-in-out 2.4s infinite;}
+@keyframes campaign-pulse{
+  0%,100%{transform:translateX(-50%) scale(1);opacity:.94;}
+  50%{transform:translateX(-50%) scale(1.025);opacity:1;}
+}
+.campaign-meter{position:relative;width:100%;height:18px;background:rgba(255,255,255,.18);overflow:hidden;}
+.campaign-meter i{position:absolute;inset:0 auto 0 0;width:0;display:block;background:var(--red);
+  transition:width 2.4s cubic-bezier(.2,.72,.22,1);}
+.appeal.progress-in .campaign-meter i{width:30%;}
+.campaign-meter i::after{content:"";position:absolute;inset:0 0 0 auto;width:4px;background:#fff;opacity:.9;}
+
+.sec{padding:clamp(76px,9vw,112px) 0;}
+.sec-head{margin-bottom:52px;}
+.sec-head h2{line-height:1.02;margin-top:20px;}
+.split{gap:clamp(44px,7vw,88px);}
+.split figure img{border-radius:6px;box-shadow:var(--shadow);}
+.split figure figcaption{left:18px;bottom:18px;border-radius:3px;}
+
+.cards{gap:22px;}
+.card{border:0;border-radius:7px;overflow:hidden;box-shadow:var(--shadow);}
+.card:hover{transform:translateY(-5px);box-shadow:0 24px 54px -32px rgba(20,20,18,.48);}
+.card .tag{top:14px;left:14px;border-radius:3px;}
+.card .body{padding:28px 26px 30px;gap:14px;}
+.card h3{line-height:1.08;}
+
+.quote{padding:clamp(82px,10vw,124px) 0;position:relative;overflow:hidden;}
+.quote::after{display:none;}
+.quote .wrap{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(300px,.88fr);
+  column-gap:clamp(60px,9vw,130px);row-gap:22px;align-items:end;}
+.quote .q{grid-column:1;grid-row:1 / span 2;max-width:14ch;line-height:1.02;margin:0;}
+.quote .q mark{padding:0;background:transparent;color:var(--red);}
+.quote .attrib{grid-column:2;grid-row:1;margin:0;padding-top:18px;border-top:2px solid var(--red);}
+.quote .after{grid-column:2;grid-row:2;margin:0;max-width:46ch;line-height:1.75;
+  color:rgba(242,242,242,.72);}
+
+.stats{gap:16px;border:0!important;}
+.stat{position:relative;min-height:156px;padding:28px 26px 26px;border:1px solid var(--line)!important;
+  border-radius:7px;background:var(--card);box-shadow:0 14px 38px -34px rgba(20,20,18,.5);}
+.stat:last-child{border-right:1px solid var(--line);}
+.stat::before{content:"";position:absolute;left:26px;top:0;width:42px;height:3px;background:var(--red);
+  border-radius:0 0 3px 3px;}
+.stat .n{font-size:clamp(2.55rem,4vw,3.25rem);line-height:1;color:var(--ink);}
+.stat .t{margin-top:14px;max-width:27ch;font-size:.86rem;line-height:1.55;color:var(--muted);}
+
+.acts3{gap:18px;border:0;}
+.act{padding:34px 30px;border:1px solid var(--line)!important;border-radius:6px;background:var(--card);}
+.act .n{font-size:2.3rem;color:var(--red);opacity:.9;}
+
+.grid6{gap:16px;}
+.grid6 figure{border-radius:6px;}
+.grid6 img{filter:saturate(.9);}
+.project-film{position:relative;margin:34px 0 18px;aspect-ratio:16/9;overflow:hidden;border-radius:8px;
+  background:#090a0c;box-shadow:0 28px 70px -42px rgba(0,0,0,.65);}
+.project-film iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.media-placeholder{position:absolute;inset:0;display:grid;place-items:center;isolation:isolate;text-align:center;color:#fff;}
+.media-placeholder>img{position:absolute;z-index:-2;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.75);}
+.media-placeholder::after{content:"";position:absolute;z-index:-1;inset:0;background:rgba(7,8,10,.62);}
+.media-placeholder-inner{max-width:520px;padding:28px;}
+.media-placeholder-inner strong{display:block;margin-bottom:9px;font:400 clamp(1.7rem,4vw,3rem)/1 var(--disp);text-transform:uppercase;}
+.media-placeholder-inner p{margin:0 0 20px;color:rgba(255,255,255,.76);font-size:.9rem;}
+.media-placeholder .btn{background:#24347d;border-color:#24347d;color:#fff;}
+
+.tiers{gap:22px;}
+.tier{border:0;border-radius:7px;padding:38px 34px;box-shadow:var(--shadow);}
+.tier.hi{border:2px solid var(--red);transform:translateY(-6px);}
+.give-col{border:0;border-radius:7px;padding:36px;}
+.receipt{border-left-width:3px;border-radius:0 5px 5px 0;padding:22px 24px;}
+
+.site-foot{padding-top:72px;}
+.foot-grid{padding-bottom:54px;}
+
+@media(max-width:880px){
+  .hero{min-height:660px;}
+  .hero .inner{padding:72px 0 82px;}
+  .appeal-in{gap:34px;}
+  .acts3{gap:14px;}
+  .tier.hi{transform:none;}
+  .campaign-photo{width:100%;opacity:.42;}
+  .appeal::before{background:linear-gradient(90deg,rgba(17,18,21,.97),rgba(17,18,21,.7)),
+    linear-gradient(0deg,rgba(17,18,21,.85),transparent);}
+  .appeal-in{padding-bottom:38px;}
+  .appeal-copy{margin-left:0;}
+  .campaign-meta{flex-direction:row;}
+  .campaign-meta p{width:auto;margin:0;}
+  .campaign-meta .pct{left:35%;top:auto;bottom:42px;font-size:clamp(2.6rem,12vw,4rem);}
+  .appeal-action .btn{min-width:0;}
+  .quote .wrap{grid-template-columns:1fr;gap:22px;}
+  .quote .q,.quote .attrib,.quote .after{grid-column:1;grid-row:auto;}
+  .quote .q{max-width:16ch;margin-bottom:18px;}
+  .quote .attrib{max-width:46ch;}
+}
+@media(max-width:560px){
+  .head-in{height:84px;}
+  .mark{gap:11px;}
+  .mark img{width:62px;height:62px;}
+  .mark>span{min-height:62px;gap:4px;}
+  .head-nav{padding:0;border:0;background:transparent;}
+  .head-nav .btn{min-height:42px;padding:.7em 1em;}
+  .hero{min-height:610px;}
+  .hero .claim{font-size:clamp(2.45rem,11.5vw,3.6rem);}
+  .hero .sub{font-size:1rem;}
+  .hero .acts .btn{width:100%;}
+  .appeal-action .btn{width:100%;}
+  .campaign-meta{align-items:center;}
+  .campaign-meta p{max-width:28ch;}
+  .campaign-meter{height:16px;}
+  .sec{padding:70px 0;}
+  .stats{grid-template-columns:1fr;gap:12px;}
+  .stat{min-height:0;padding:24px 22px;}
+  .stat::before{left:22px;}
+  .stat .n{font-size:2.5rem;}
+  .give-col,.tier{padding:28px 24px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .campaign-meta .pct{animation:none;opacity:1;}
+  .campaign-meter i{transition:none;}
+}
+/* Donation actions use a calm, trustworthy blue; red remains the progress accent. */
+.btn.btn-donate{background:#24347D;color:#fff;border-color:#24347D;
+  box-shadow:0 10px 24px -16px rgba(36,52,125,.75);}
+.btn.btn-donate:hover{background:#18265F;color:#fff;border-color:#18265F;}
+.btn.btn-donate:focus-visible{outline:3px solid #AEB9F5;outline-offset:3px;}
+.consent-banner{position:fixed;z-index:80;left:22px;bottom:22px;width:min(430px,calc(100vw - 44px));padding:25px;
+  border:1px solid rgba(255,255,255,.16);border-radius:8px;background:rgba(14,15,18,.97);color:#f7f6f2;
+  box-shadow:0 28px 70px -30px rgba(0,0,0,.82);backdrop-filter:blur(20px);}
+.consent-banner[hidden]{display:none}.consent-banner .mini{margin:0 0 7px;color:#aeb9f5;font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
+.consent-banner h2{margin:0 0 10px;font:400 1.8rem/1 var(--disp);text-transform:uppercase;}
+.consent-banner p{margin:0;color:rgba(255,255,255,.7);font-size:.82rem;line-height:1.55;}
+.consent-banner a{color:#fff}.consent-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:20px;}
+.consent-actions button{min-height:44px;padding:10px;border:1px solid rgba(255,255,255,.3);border-radius:4px;background:transparent;color:#fff;
+  font:700 .7rem var(--sans);letter-spacing:.07em;text-transform:uppercase;cursor:pointer;}
+.consent-actions .necessary{border-color:#ecebe7;background:#ecebe7;color:#151515}.consent-actions .accept{border-color:#f4c84a;background:#f4c84a;color:#151515}.consent-actions button:hover{border-color:#fff;filter:brightness(1.06);}
+.consent-settings{padding:0;border:0;background:none;color:rgba(242,242,242,.8);font:inherit;cursor:pointer;text-decoration:underline;}
+@media(max-width:540px){.consent-banner{left:12px;bottom:12px;width:calc(100vw - 24px);padding:21px}.consent-actions{grid-template-columns:1fr}}
+
+/* ===== KOPFZEILE AUF KLEINEN BILDSCHIRMEN =====
+   Unterhalb 980px waren die Navigationslinks ausgeblendet, ohne Ersatz — auf
+   Telefon und Tablet gab es gar keine Navigation. Sie liegen jetzt in einem
+   Klappmenue hinter dem Menueknopf.
+   Der Block steht bewusst am Ende: weiter oben setzen drei Regeln eine feste
+   Hoehe (72, 98 und 84px), und .site-head hat overflow:hidden — beides muss
+   hier zurueckgenommen werden, sonst waere das aufgeklappte Menue
+   abgeschnitten. */
+.nav-toggle{display:none}
+@media(max-width:980px){
+  .site-head{overflow:visible}
+  .head-in{height:auto;min-height:62px;padding-top:10px;padding-bottom:10px;}
+  .head-nav{margin-left:auto;gap:10px;}
+  .nav-toggle{display:inline-flex;align-items:center;justify-content:center;
+    width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:8px;
+    background:var(--card);color:var(--ink);cursor:pointer;}
+  .nav-toggle:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+  /* Die drei Striche: der mittlere ist das span, die aeusseren sind seine
+     Pseudoelemente. Beim Oeffnen wird daraus ein Kreuz. */
+  .nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{
+    display:block;width:19px;height:2px;border-radius:2px;background:currentColor;
+    transition:transform .22s ease,opacity .18s ease;}
+  .nav-toggle span{position:relative}
+  .nav-toggle span::before,.nav-toggle span::after{content:"";position:absolute;left:0}
+  .nav-toggle span::before{top:-6px}
+  .nav-toggle span::after{top:6px}
+  .nav-toggle[aria-expanded="true"] span{background:transparent}
+  .nav-toggle[aria-expanded="true"] span::before{transform:translateY(6px) rotate(45deg)}
+  .nav-toggle[aria-expanded="true"] span::after{transform:translateY(-6px) rotate(-45deg)}
+  .nav-links{position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:2;
+    display:none;flex-direction:column;align-items:stretch;gap:2px;
+    padding:8px;border:1px solid var(--line);border-radius:12px;
+    background:var(--card);box-shadow:0 24px 44px -26px rgba(0,0,0,.55);}
+  .head-in[data-menu="offen"] .nav-links{display:flex}
+  .head-nav a:not(.btn){display:flex;padding:13px 14px;border-radius:8px;
+    font-size:.8rem;}
+}
+/* Unter rund 500px passen Wappen, Schriftzug, Menueknopf und Button nicht mehr
+   nebeneinander — gemessen braeuchte es 487px bei 390 verfuegbaren. Der
+   Schriftzug tritt zurueck, das Wappen bleibt. */
+@media(max-width:500px){
+  .mark>span{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{transition:none}
+}
+
+/* ===== HERO AUF DEM TELEFON OHNE FOTO =====
+   Das Mannschaftsfoto traegt im schmalen Ausschnitt nichts mehr: es ist so
+   stark angeschnitten, dass der Kreis nicht mehr zu erkennen ist, und kostet
+   auf dem Mobilfunknetz die groesste Datei der Seite. Der Hero wird hier zum
+   reinen Textblock. Der Schleier gehoert zum Foto und faellt mit ihm weg —
+   ueber dem einfarbigen Grund wuerde er ihn nur braun einfaerben.
+   Dieselbe Grenze wie beim Spenden-Drawer, damit beide zusammen umschalten. */
+@media(max-width:720px){
+  .hero img.bg,.hero .veil{display:none}
+  /* Ohne Foto traegt die volle Hoehe nicht mehr — der Text soll sie bestimmen. */
+  .hero{min-height:0;background:var(--paper);}
+  .hero .inner{padding:56px 0 64px;}
+}
+</style>
+<link rel="stylesheet" href="donation-drawer.css">
+<link rel="icon" href="favicon.ico" sizes="any"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta property="og:type" content="website"><meta property="og:site_name" content="BK West United Foundation Germany e.V."><meta property="og:locale" content="de_DE"><meta property="og:title" content="BK West United Foundation Germany e.V. — Sport baut Brücken"><meta property="og:description" content="BK West United Foundation Germany e.V. – Sport, Bildung und Begegnung zwischen Frankfurt am Main und Bakoteh in Gambia."><meta property="og:image" content="https://bkwestunited.de/og-bild.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Zwei Jugendliche im Zweikampf auf dem Fußballplatz in Bakoteh, Gambia"><meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap head-in">
+    <a class="mark" href="#top">
+      <img src="wp-export/img/logo_inv.png" alt="">
+      <span><b>BK West United<br>Foundation Germany e.V.</b></span>
+    </a>
+    <nav class="head-nav">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="hauptmenue" aria-label="Menü öffnen"><span></span></button>
+      <div class="nav-links" id="hauptmenue">
+        <a href="#top">Start</a>
+        <a href="projekte.html">Projekte</a>
+        <a href="mitgliedschaft.html">Mitgliedschaft</a>
+        <a href="sponsoren.html">Partner &amp; Sponsoring</a>
+      </div>
+      <a class="btn btn-red btn-donate" href="#mitglied">Mitglied werden</a>
+    </nav>
+  </div>
+</header>
+
+<aside class="donation-drawer is-open" id="donation-drawer" aria-label="Spenden">
+  <button class="donation-tab" type="button" aria-expanded="true" aria-controls="donation-panel">Spenden</button>
+  <form class="donation-panel" id="donation-panel">
+    <p class="mini">Direkt unterstützen</p>
+    <h2>Perspektiven schaffen</h2>
+    <p class="intro">Ihre Spende stärkt Sport, Bildung und Begegnung zwischen Frankfurt und Gambia.</p>
+    <fieldset>
+      <legend>Spendenart</legend>
+      <div class="donation-options">
+        <input type="radio" name="rhythm" id="donation-once" value="once" checked><label for="donation-once">Einmalig</label>
+        <input type="radio" name="rhythm" id="donation-monthly" value="monthly"><label for="donation-monthly">Monatlich</label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Betrag</legend>
+      <div class="donation-options donation-amounts">
+        <input type="radio" name="amount" id="amount-25" value="25"><label for="amount-25">25 €</label>
+        <input type="radio" name="amount" id="amount-50" value="50" checked><label for="amount-50">50 €</label>
+        <input type="radio" name="amount" id="amount-100" value="100"><label for="amount-100">100 €</label>
+        <input type="radio" name="amount" id="amount-250" value="250"><label for="amount-250">250 €</label>
+      </div>
+    </fieldset>
+    <label class="field-label" for="donation-purpose">Spendenzweck</label>
+    <select id="donation-purpose" name="purpose">
+      <option value="allgemein">Wo Hilfe am dringendsten ist</option>
+      <option value="trainingsmaterial">Trainingsmaterial</option>
+      <option value="sport-baut-bruecken">Sport baut Brücken</option>
+      <option value="girls-can-play">Girls Can Play</option>
+    </select>
+    <button class="donation-submit" type="submit">Weiter zur Spende</button>
+    <p class="donation-provider"><span>Sichere Zahlungsabwicklung über</span><img src="raisenow-logo.png" alt="RaiseNow"></p>
+    <p class="donation-security">Betrag und Spendenart im nächsten Schritt bestätigen</p>
+  </form>
+  <button class="current-tab" type="button" aria-expanded="false" aria-controls="current-panel">Aktuell</button>
+  <div class="current-panel" id="current-panel" hidden>
+    <img src="wp-export/img/betterplace-bus.jpeg" alt="Bus für das soziale Fußballprojekt in Gambia">
+    <div class="current-panel-body"><p class="mini">Betterplace · Stand 28.08.2026</p><h2>Sichere Wege. Echte Teilhabe.</h2><p>Der Bus bringt Kinder und Jugendliche kostenfrei zu Training, Spielen, Schule und sozialen Veranstaltungen.</p><div class="current-progress-head"><span>2.440 € finanziert</span><strong>30 %</strong></div><div class="current-progress" role="progressbar" aria-label="Busprojekt zu 30 Prozent finanziert" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30"><i></i></div><div class="current-stats"><span><b>8.000 €</b>Spendenziel</span><span><b>5.560 €</b>noch offen</span><span><b>38</b>Spenden</span></div><a class="current-link" href="https://www.betterplace.org/de/projects/184020-bus-fuer-ein-soziales-fussballprojekt-in-gambia" target="_blank" rel="noopener noreferrer">Jetzt Bus mitfinanzieren <span>↗</span></a><p class="donation-provider"><span>Sichere Zahlungsabwicklung über</span><img src="betterplace-logo.png" alt="betterplace.org"></p><p class="donation-security">Betrag und Spendenart im nächsten Schritt wählen</p></div>
+  </div>
+</aside>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <img class="bg" src="wp-export/img/hero-team.jpg" alt="Spielerinnen und Spieler im Mannschaftskreis, von unten fotografiert">
+    <div class="veil"></div>
+    <div class="inner">
+      <div class="wrap">
+        <span class="kicker">Frankfurt am Main · Bakoteh, Gambia</span>
+        <h1 class="disp claim">Sport<span class="claim-line">Baut <mark>Brücken</mark></span></h1>
+        <p class="sub">Was als Initiative für den sportlichen und kulturellen Austausch mit Gambia begann, ist heute ein anerkanntes Projekt für Integration, internationale Jugendbegegnung und gegenseitige Unterstützung.</p>
+        <div class="acts">
+          <a class="btn btn-red btn-donate" href="#spenden">Jetzt spenden</a>
+          <a class="btn btn-onphoto" href="#mitglied">Fördermitglied werden</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- TICKER -->
+  <section class="ticker" aria-label="Neuigkeiten">
+    <p class="ticker-label">Neuigkeiten</p>
+    <div class="ticker-view">
+      <ul class="ticker-track">
+      <li><b>28.08.2026</b>Busprojekt bei 30 Prozent — 2.440 € von 8.000 € sind zusammen</li>
+      <li><b>19.08.2026</b>Girls Can Play startet mit 24 Spielerinnen in die neue Saison in Bakoteh</li>
+      <li><b>05.08.2026</b>Kooperation mit der Gambia Football Federation für zwei weitere Jahre verlängert</li>
+      <li aria-hidden="true"><b>28.08.2026</b>Busprojekt bei 30 Prozent — 2.440 € von 8.000 € sind zusammen</li>
+      <li aria-hidden="true"><b>19.08.2026</b>Girls Can Play startet mit 24 Spielerinnen in die neue Saison in Bakoteh</li>
+      <li aria-hidden="true"><b>05.08.2026</b>Kooperation mit der Gambia Football Federation für zwei weitere Jahre verlängert</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- APPEAL -->
+  <section class="appeal">
+    <img class="campaign-photo" src="wp-export/img/kampagne-bus.jpg" alt="Kinder und Jugendliche am Bus des Fußballprojekts in Gambia">
+    <div class="wrap appeal-in">
+      <div class="appeal-copy">
+        <span class="kicker">Aktuelles Spendenprojekt</span>
+        <h2 class="disp">Ein Bus für unser Fußballprojekt</h2>
+        <p>Viele Kinder und Jugendliche nehmen weite Wege zum Training auf sich. Ein eigener Bus bringt sie kostenfrei und sicher zu Training, Spielen, Schule und sozialen Veranstaltungen.</p>
+        <div class="appeal-action">
+          <a class="btn btn-dark" href="https://www.betterplace.org/de/projects/184020-bus-fuer-ein-soziales-fussballprojekt-in-gambia" target="_blank" rel="noopener noreferrer">Jetzt Bus mitfinanzieren</a>
+        </div>
+      </div>
+    </div>
+    <div class="wrap campaign-meta">
+      <p>Aktueller Stand · 2.440 € von 8.000 € finanziert</p>
+      <span class="pct" data-target="30">0 %</span>
+    </div>
+    <div class="campaign-meter" role="progressbar" aria-label="Fortschritt des aktuellen Spendenprojekts" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30"><i></i></div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="sec">
+    <div class="wrap split">
+      <div class="txt rv">
+        <span class="kicker">Best of both Worlds</span>
+        <h2 class="disp">Zwei Orte,<br>eine Aufgabe</h2>
+        <p>„Sport baut Brücken" schafft eine lebendige und tragfähige Verbindung zwischen Frankfurt und Westafrika. In Gambia arbeiten wir eng mit der Gambia Football Federation, mit Schulen, Fernsehsendern und weiteren lokalen Akteuren zusammen.</p>
+        <p>In Frankfurt haben wir starke Partner gefunden, mit denen wir teilweise schon länger zusammenarbeiten. Wir glauben daran, dass die Kraft des Sports interkulturelle Barrieren überwindet, das soziale Miteinander stärkt und Persönlichkeiten entwickelt.</p>
+      </div>
+      <figure class="rv">
+        <img src="wp-export/img/hero2.jpg" alt="Freundschaftsspiel der Foundation">
+        <figcaption>Sportkultureller Austausch</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="wrap">
+    <div class="stats rv" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+      <div class="stat"><span class="n">2</span><span class="t">Wirkungsorte — Frankfurt am Main und Bakoteh, Gambia</span></div>
+      <div class="stat"><span class="n">20<em>+</em></span><span class="t">Fördermitglieder tragen die Projekte</span></div>
+      <div class="stat"><span class="n">5–10 €</span><span class="t">Monatsbeitrag einer Fördermitgliedschaft</span></div>
+      <div class="stat"><span class="n">&gt; 300 €</span><span class="t">Für höhere Spenden stellen wir eine Spendenbescheinigung aus</span></div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <section class="sec" id="projekte">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">Unsere Projekte</span>
+        <h2 class="disp">Damit Talent wachsen kann</h2>
+        <p>Drei Schwerpunkte, in denen die Foundation in Gambia und Frankfurt arbeitet.</p>
+      </div>
+      <div class="cards">
+        <article class="card rv">
+          <div class="ph"><span class="tag">Akademie</span><img src="wp-export/img/g1.jpg" alt="Jugendliche der Akademie in Bakoteh"></div>
+          <div class="body">
+            <h3>BK West United FC</h3>
+            <p>Die Akademie in Bakoteh verfolgt einen ganzheitlichen Ansatz: Sie unterstützt die sportliche wie die persönliche Entwicklung der Jugendlichen und ist stark in der Community verankert — durch Jugendprogramme, Schulkooperationen und Charity-Events.</p>
+            <a class="more" href="projekte.html#akademie">Mehr erfahren →</a>
+          </div>
+        </article>
+        <article class="card rv">
+          <div class="ph"><span class="tag">Initiative</span><img src="wp-export/img/g3.jpg" alt="Spielerinnen des Girls-Can-Play-Programms"></div>
+          <div class="body">
+            <h3>Girls Can Play</h3>
+            <p>Mädchen und junge Frauen durch die Kraft des Fußballs stärken — und die geschlechtsspezifischen Ungleichheiten im Sport angehen, auf dem Platz wie in Führungspositionen. In Frankfurt haben wir Frauenfußball sichtbar gemacht.</p>
+            <a class="more" href="projekte.html#girls-can-play">Mehr erfahren →</a>
+          </div>
+        </article>
+        <article class="card rv">
+          <div class="ph"><span class="tag">Vision</span><img src="wp-export/img/g5.jpg" alt="Team der Foundation bei einem Projekt"></div>
+          <div class="body">
+            <h3>Katalysator der Veränderung</h3>
+            <p>Ein multidisziplinäres Team, das die Bedingungen für die junge Generation in Gambia mithilfe des Sports zukunftssicherer gestaltet — und junge Menschen ermutigt, aktiv an ihrer Zukunft teilzunehmen.</p>
+            <a class="more" href="projekte.html#vision">Mehr erfahren →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote">
+    <div class="wrap">
+      <p class="q disp">Spieler zu <mark>Menschen</mark> formen.</p>
+      <p class="attrib">Leitmotiv der Akademie</p>
+      <p class="after">Der Verein fördert die fußballerische ebenso wie die schulische und soziale Ausbildung der Spieler, um sie auf die Herausforderungen des Lebens vorzubereiten.</p>
+    </div>
+  </section>
+
+  <!-- THREE WAYS TO HELP -->
+  <section class="sec sec-sunk" id="mitmachen">
+    <div class="wrap">
+      <div class="sec-head center rv">
+        <span class="kicker">Mitmachen</span>
+        <h2 class="disp">Drei Wege zu helfen</h2>
+      </div>
+      <div class="acts3 rv">
+        <div class="act">
+          <span class="n">01</span>
+          <h3>Spenden</h3>
+          <p>Einmalig oder regelmäßig — per Überweisung oder PayPal. Für Spenden über 300 € stellen wir eine Spendenbescheinigung aus.</p>
+          <a class="btn btn-red btn-donate" href="#spenden">Jetzt spenden</a>
+        </div>
+        <div class="act">
+          <span class="n">02</span>
+          <h3>Fördermitglied</h3>
+          <p>Ab 5 € im Monat tragen Sie unsere Sport- und Kulturprojekte dauerhaft mit. Der Antrag ist in wenigen Minuten gestellt.</p>
+          <a class="btn btn-dark" href="#mitglied">Mitglied werden</a>
+        </div>
+        <div class="act">
+          <span class="n">03</span>
+          <h3>Partner werden</h3>
+          <p>Für Unternehmen, Einrichtungen und Stiftungen: Geld- und Sachspenden, mit denen wir Projekte umsetzen, die allein nicht möglich wären.</p>
+          <a class="btn btn-line" href="sponsoren.html">Partner werden</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">Bildstrecke</span>
+        <h2 class="disp">Aus unseren Sportprojekten</h2>
+        <p>Eindrücke aus der Arbeit in Gambia und Frankfurt, unter anderem vom MTU Cup 2024.</p>
+      </div>
+      <div class="project-film rv" data-youtube="3G_RkkzUbNY">
+        <div class="media-placeholder">
+          <img src="wp-export/img/hero2.jpg" alt="">
+          <div class="media-placeholder-inner"><strong>Film ansehen</strong><p>Mit dem Laden des Videos stimmen Sie der Verbindung zu YouTube zu.</p><button class="btn enable-media" type="button">Video laden</button></div>
+        </div>
+      </div>
+      <div class="grid6 rv">
+        <figure class="w2"><img src="wp-export/img/hero2.jpg" alt="Freundschaftsspiel"></figure>
+        <figure><img src="wp-export/img/g2.jpg" alt="Aus der Projektarbeit"></figure>
+        <figure><img src="wp-export/img/g4.jpg" alt="Aus der Projektarbeit"></figure>
+        <figure><img src="wp-export/img/g6.jpg" alt="Aus der Projektarbeit"></figure>
+        <figure><img src="wp-export/img/g5.jpg" alt="Aus der Projektarbeit"></figure>
+        <figure class="w2"><img src="wp-export/img/hero1.jpg" alt="Freundschaftsspiel"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBERSHIP -->
+  <section class="sec sec-sunk" id="mitglied">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">Fördermitgliedschaft</span>
+        <h2 class="disp">Tragen Sie die Projekte mit</h2>
+        <p>Um unsere Förderprojekte bestmöglich zu unterstützen, sind wir auf Fördermitglieder angewiesen. Über Beiträge von 5 € oder 10 € monatlich setzen wir unsere Projekte um.</p>
+      </div>
+      <div class="tiers rv">
+        <div class="tier">
+          <span class="kicker">Basis</span>
+          <div class="amt disp">5 €<small>pro Monat</small></div>
+          <ul>
+            <li>Unterstützung der Sportprojekte</li>
+            <li>Unterstützung der Kulturprojekte</li>
+          </ul>
+          <a class="btn btn-line" href="https://pay.raisenow.io/sspgb?amount.default=5&amp;reference.campaign_id=mitgliedschaft-basis&amp;lng=de">Digital beantragen</a>
+        </div>
+        <div class="tier hi">
+          <span class="kicker">Plus</span>
+          <div class="amt disp">10 €<small>pro Monat</small></div>
+          <ul>
+            <li>Intensivere Förderung der Sport- und Kulturprojekte</li>
+            <li>Early-Bird-Access zu Events in Deutschland</li>
+          </ul>
+          <a class="btn btn-red" href="https://pay.raisenow.io/sspgb?amount.default=10&amp;reference.campaign_id=mitgliedschaft-plus&amp;lng=de">Digital beantragen</a>
+        </div>
+      </div>
+      <p class="fineprint">Die Mitgliedschaft beginnt mit der Annahme durch den Vorstand; eine schriftliche Bestätigung erfolgt per E-Mail. Eine Kündigung ist mit einer Frist von vier Wochen zum Quartal möglich — formlos per E-Mail an <a href="mailto:info@bkwestunited.de">info@bkwestunited.de</a>.</p>
+      <p class="fineprint"><a class="btn btn-line" href="mitgliedschaft.html">Alle Angaben zur Mitgliedschaft</a></p>
+    </div>
+  </section>
+
+  <!-- GIVE -->
+  <section class="sec" id="spenden">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">Spenden</span>
+        <h2 class="disp">So kommt Ihre Spende an</h2>
+      </div>
+      <div class="give rv">
+        <div class="give-col">
+          <h3>Per Überweisung</h3>
+          <dl class="dl">
+            <dt>Empfänger</dt><dd>BK West United Foundation Germany e.V.</dd>
+            <dt>IBAN</dt><dd>DE74 8306 5408 0005 5266 47</dd>
+            <dt>BIC</dt><dd>GENODEF1SLR</dd>
+            <dt>Zweck</dt><dd>Spende</dd>
+          </dl>
+        </div>
+        <div class="give-col">
+          <h3>Per PayPal</h3>
+          <dl class="dl">
+            <dt>PayPal</dt><dd><a href="mailto:info@bkwestunited.de">info@bkwestunited.de</a></dd>
+            <dt>Zweck</dt><dd>Spende</dd>
+            <dt>Direktlink</dt><dd><a href="https://paypal.me/bkwestunited">paypal.me/bkwestunited</a></dd>
+          </dl>
+          <a class="btn btn-red btn-donate" href="https://paypal.me/bkwestunited">Mit PayPal spenden</a>
+        </div>
+        <div class="give-col">
+          <h3>Sicher online</h3>
+          <dl class="dl">
+            <dt>Abwicklung</dt><dd>RaiseNow</dd>
+            <dt>Spendenart</dt><dd>Einmalig oder monatlich</dd>
+            <dt>Spendenzweck</dt><dd>Individuell auswählbar</dd>
+          </dl>
+          <a class="btn btn-red btn-donate" href="#spenden">Online spenden</a>
+        </div>
+      </div>
+      <p class="receipt rv"><b>Spendenquittungen.</b> Bitte geben Sie im Verwendungszweck unbedingt „Spende" an. Für Spenden über 300 € stellen wir eine Spendenbescheinigung aus. Bis einschließlich 300 € genügt unter den gesetzlichen Voraussetzungen ein vereinfachter Spendennachweis.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <div class="foot-mark">
+        <img src="wp-export/img/logo_inv.png" alt="">
+        <b>BK West United<br>Foundation Germany e.V.</b>
+      </div>
+      <p class="foot-lead">Sport baut Brücken — für Integration, internationale Jugendbegegnung und echte Perspektiven zwischen Frankfurt und Gambia.</p>
+      <div class="foot-cta"><a class="btn btn-red btn-donate" href="#spenden">Jetzt spenden</a></div>
+    </div>
+    <div>
+      <h4>Spendenkonto</h4>
+      <address>
+        BK West United Foundation<br>
+        Germany e.V.<br><br>
+        IBAN DE74 8306 5408<br>0005 5266 47<br>
+        BIC GENODEF1SLR<br><br>
+        Amtsgericht Frankfurt am Main<br>VR 17594
+      </address>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <ul>
+        <li><a href="mailto:info@bkwestunited.de">info@bkwestunited.de</a></li>
+        <li><a href="#mitglied">Fördermitglied werden</a></li><li><a href="mitgliedschaft.html">Mitgliedschaft</a></li>
+        <li><a href="#spenden">Spenden</a></li>
+        <li><a href="sponsoren.html">Partner &amp; Sponsoring</a></li>
+        <li><a href="projekte.html">Projekte</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="datenschutz.html">Datenschutz</a></li>
+        <li><a href="https://www.instagram.com/bk_westunited_fc/?hl=de" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://www.linkedin.com/company/bk-west-united-foundation/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><button class="consent-settings" type="button">Datenschutz-Einstellungen</button></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-end">
+    <span>© 2026 BK West United Foundation Germany e.V.</span>
+    <span>Vertreten durch Louis Vierl · Stephan von Ploetz</span>
+  </div>
+</footer>
+
+<section class="consent-banner" id="consent-banner" role="dialog" aria-labelledby="consent-title" hidden>
+  <p class="mini">Datenschutz</p>
+  <h2 id="consent-title">Ihre Auswahl</h2>
+  <p>Notwendige Funktionen laufen immer. Externe Medien wie YouTube laden wir nur mit Ihrer Zustimmung. Mehr dazu erfahren Sie im <a href="datenschutz.html">Datenschutz</a>.</p>
+  <div class="consent-actions">
+    <button class="necessary" type="button" data-consent="necessary">Nur notwendige</button>
+    <button class="accept" type="button" data-consent="all">Alle akzeptieren</button>
+  </div>
+</section>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(e){io.observe(e);});
+})();
+(function(){
+  var key='bk-consent-v1';
+  var banner=document.getElementById('consent-banner');
+  var settings=document.querySelector('.consent-settings');
+  var videos=[].slice.call(document.querySelectorAll('[data-youtube]'));
+  function read(){try{return JSON.parse(localStorage.getItem(key))}catch(error){return null}}
+  function write(externalMedia){
+    try{localStorage.setItem(key,JSON.stringify({externalMedia:externalMedia,updated:new Date().toISOString()}))}catch(error){}
+    banner.hidden=true;
+    if(externalMedia)loadVideos();
+  }
+  function loadVideos(){
+    videos.forEach(function(container){
+      if(container.querySelector('iframe'))return;
+      var iframe=document.createElement('iframe');
+      iframe.src='https://www.youtube-nocookie.com/embed/'+container.getAttribute('data-youtube')+'?rel=0';
+      iframe.title='Film aus den Sportprojekten der BK West United Foundation';
+      iframe.loading='lazy';
+      iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.referrerPolicy='strict-origin-when-cross-origin';
+      iframe.allowFullscreen=true;
+      container.replaceChildren(iframe);
+    });
+  }
+  var consent=read();
+  if(consent&&consent.externalMedia===true)loadVideos();
+  else if(!consent)banner.hidden=false;
+  banner.querySelector('[data-consent="necessary"]').addEventListener('click',function(){write(false)});
+  banner.querySelector('[data-consent="all"]').addEventListener('click',function(){write(true)});
+  settings.addEventListener('click',function(){banner.hidden=false;banner.querySelector('[data-consent="necessary"]').focus()});
+  document.querySelectorAll('.enable-media').forEach(function(button){button.addEventListener('click',function(){write(true)})});
+})();
+(function(){
+  var appeal=document.querySelector('.appeal');
+  if(!appeal)return;
+  var value=appeal.querySelector('.pct');
+  var target=Number(value.getAttribute('data-target'))||35;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function finish(){value.textContent=target+' %';appeal.classList.add('progress-in');}
+  function start(){
+    if(appeal.classList.contains('progress-in'))return;
+    if(reduce){finish();return;}
+    appeal.classList.add('progress-in');
+    var begun=performance.now(),duration=2400;
+    function count(now){
+      var progress=Math.min(1,(now-begun)/duration);
+      var eased=1-Math.pow(1-progress,3);
+      value.textContent=Math.round(target*eased)+' %';
+      if(progress<1)requestAnimationFrame(count);else value.textContent=target+' %';
+    }
+    requestAnimationFrame(count);
+  }
+  if(!('IntersectionObserver' in window)){finish();return;}
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){if(entry.isIntersecting){start();observer.disconnect();}});
+  },{threshold:.28});
+  observer.observe(appeal);
+})();
+(function(){
+(function(){
+  var knopf=document.querySelector('.nav-toggle');
+  if(!knopf)return;
+  var kopf=knopf.closest('.head-in'), menue=document.getElementById('hauptmenue');
+  function setze(offen){
+    kopf.dataset.menu=offen?'offen':'zu';
+    knopf.setAttribute('aria-expanded',String(offen));
+    knopf.setAttribute('aria-label',offen?'Menü schließen':'Menü öffnen');
+  }
+  setze(false);
+  knopf.addEventListener('click',function(){setze(kopf.dataset.menu!=='offen')});
+  menue.addEventListener('click',function(e){if(e.target.closest('a'))setze(false)});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&kopf.dataset.menu==='offen'){setze(false);knopf.focus()}
+  });
+  document.addEventListener('click',function(e){
+    if(kopf.dataset.menu==='offen'&&!e.target.closest('.head-nav'))setze(false);
+  });
+  // Beim Wechsel auf Desktop wieder zumachen, sonst bliebe der Zustand haengen
+  addEventListener('resize',function(){if(window.innerWidth>980)setze(false)});
+})();
+  var drawer=document.getElementById('donation-drawer');
+  var toggle=drawer.querySelector('.donation-tab');
+  var form=drawer.querySelector('form');
+  var wasTop=true,lastY=window.scrollY||document.documentElement.scrollTop;
+  function setOpen(open){drawer.classList.toggle('is-open',open);toggle.setAttribute('aria-expanded',String(open));}
+  function drawAttention(){
+    toggle.classList.remove('is-attention');
+    void toggle.offsetWidth;
+    toggle.classList.add('is-attention');
+  }
+  toggle.addEventListener('animationend',function(){toggle.classList.remove('is-attention');});
+  toggle.addEventListener('click',function(){var panel=document.getElementById('current-panel'),currentToggle=drawer.querySelector('.current-tab'),open=drawer.classList.contains('is-open')&&!drawer.classList.contains('is-current');drawer.classList.remove('is-current');form.hidden=false;if(panel)panel.hidden=true;if(currentToggle)currentToggle.setAttribute('aria-expanded','false');setOpen(!open);});
+  document.querySelectorAll('a.btn-donate[href="#spenden"]').forEach(function(link){
+    link.addEventListener('click',function(event){
+      event.preventDefault();
+      if(drawer.classList.contains('is-open')){drawAttention();}
+      else{setOpen(true);}
+    });
+  });
+  function selbstOeffnend(){return window.innerWidth>720;}
+  function followScroll(){
+    var y=window.scrollY||document.documentElement.scrollTop;
+    if(!selbstOeffnend()){lastY=y;return;}
+    if(y!==lastY){var currentToggle=drawer.querySelector('.current-tab');if(y<=24){setOpen(true);if(drawer.classList.contains('is-current')){toggle.setAttribute('aria-expanded','false');if(currentToggle)currentToggle.setAttribute('aria-expanded','true');}}else if(drawer.classList.contains('is-open')){setOpen(false);if(currentToggle)currentToggle.setAttribute('aria-expanded','false');}wasTop=y<=24;lastY=y;return;}
+    if(y<=24){wasTop=true;setOpen(true);}
+  }
+  window.addEventListener('scroll',followScroll,{passive:true});
+  if(selbstOeffnend())followScroll();else setOpen(false);
+  form.addEventListener('submit',function(event){
+    event.preventDefault();
+    var data=new FormData(form);
+    var params=new URLSearchParams();
+    params.set('amount.default',data.get('amount'));
+    params.set('reference.campaign_id',data.get('purpose'));
+    params.set('reference.campaign_subid',data.get('rhythm'));params.set('lng','de');
+    window.location.assign('https://donate.raisenow.io/pyywg?'+params.toString());
+  });
+})();
+(function(){var drawer=document.getElementById('donation-drawer'),panel=document.getElementById('current-panel');if(!drawer||!panel)return;var toggle=drawer.querySelector('.current-tab'),form=drawer.querySelector('form'),donationToggle=drawer.querySelector('.donation-tab');function syncHeight(){if(!form.hidden)panel.style.minHeight=form.offsetHeight+'px'}syncHeight();window.addEventListener('resize',syncHeight);toggle.addEventListener('click',function(){toggle.classList.add('is-seen');var close=drawer.classList.contains('is-open')&&drawer.classList.contains('is-current');syncHeight();drawer.classList.toggle('is-open',!close);drawer.classList.toggle('is-current',!close);panel.hidden=close;form.hidden=!close;toggle.setAttribute('aria-expanded',String(!close));donationToggle.setAttribute('aria-expanded','false')});})();
+</script>
+</body>
+</html>
