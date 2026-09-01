@@ -656,6 +656,33 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
   .hero{min-height:0;background:var(--paper);}
   .hero .inner{padding:56px 0 64px;}
 }
+
+/* ===== NEUIGKEITEN AUF DEM TELEFON UNTER DER KOPFZEILE =====
+   Auf dem Telefon steht das Band nicht hinter dem Hero, sondern direkt unter
+   der Kopfzeile, und bleibt beim Scrollen dort stehen.
+
+   Verschoben wird nur die Darstellung: main wird zur Flex-Spalte, das Band
+   bekommt order:-1 und rutscht damit vor den Hero. Im Dokument bleibt es an
+   seiner Stelle, Vorlesereihenfolge und Desktop-Ansicht aendern sich nicht.
+
+   top haengt an --kopf-h. Die Kopfzeile ist je nach Breite unterschiedlich
+   hoch (62, 84, 98px), ein fester Wert wuerde ueber- oder unterlappen —
+   deshalb misst ein kurzes Skript unten die tatsaechliche Hoehe. Der Wert
+   82px greift nur, falls das Skript nicht laeuft. */
+@media(max-width:720px){
+  main{display:flex;flex-direction:column;}
+  .ticker{order:-1;position:sticky;top:var(--kopf-h,82px);z-index:55;}
+  /* Das gelbe Feld faellt auf dem Telefon weg, der Lauftext beginnt am linken
+     Rand. Vorgelesen wird die Einordnung weiterhin: die Section traegt
+     aria-label="Neuigkeiten". */
+  .ticker-label{display:none;}
+  .ticker-view{padding-left:var(--gut);}
+  /* Etwas kleiner als vorher, aber bewusst nicht kleiner als 0.8rem —
+     darunter wird die laufende Schrift auf dem Telefon muehsam. */
+  .ticker-track li{font-size:.8rem;padding:10px 0;}
+  .ticker-track li::after{margin:0 18px;}
+  .ticker-track b{font-size:.72rem;margin-right:10px;}
+}
 </style>
 <link rel="stylesheet" href="donation-drawer.css">
 <link rel="icon" href="favicon.ico" sizes="any"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta property="og:type" content="website"><meta property="og:site_name" content="BK West United Foundation Germany e.V."><meta property="og:locale" content="de_DE"><meta property="og:title" content="BK West United Foundation Germany e.V. — Sport baut Brücken"><meta property="og:description" content="BK West United Foundation Germany e.V. – Sport, Bildung und Begegnung zwischen Frankfurt am Main und Bakoteh in Gambia."><meta property="og:image" content="https://bkwestunited.de/og-bild.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Zwei Jugendliche im Zweikampf auf dem Fußballplatz in Bakoteh, Gambia"><meta name="twitter:card" content="summary_large_image">
@@ -1029,6 +1056,20 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
 </section>
 
 <script>
+/* Das Neuigkeiten-Band klebt auf dem Telefon direkt unter der Kopfzeile. Deren
+   Hoehe haengt von Breite, Schriftgroesse und aufgeklapptem Menue ab — sie
+   wird deshalb gemessen und als --kopf-h bereitgestellt, statt im CSS als
+   feste Zahl zu stehen. */
+(function(){
+  var kopf=document.querySelector('.site-head');
+  if(!kopf)return;
+  function setze(){
+    document.documentElement.style.setProperty('--kopf-h',kopf.offsetHeight+'px');
+  }
+  setze();
+  addEventListener('resize',setze);
+  if(window.ResizeObserver)new ResizeObserver(setze).observe(kopf);
+})();
 (function(){
   var els=document.querySelectorAll('.rv');
   if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
