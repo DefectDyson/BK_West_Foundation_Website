@@ -25,7 +25,7 @@
   --shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px -14px rgba(0,0,0,.22);
   --disp:'Anton',Impact,'Haettenschweiler',sans-serif;
   --sans:'Archivo',ui-sans-serif,system-ui,-apple-system,sans-serif;
-  --maxw:1200px; --gut:24px;
+  --maxw:1160px; --gut:24px;
 }
 @media (prefers-color-scheme:dark){
   :root{
@@ -67,7 +67,9 @@ img{max-width:100%;display:block;}
 h1,h2,h3,h4,p{margin:0;}
 a{color:inherit;}
 :focus-visible{outline:3px solid var(--yellow);outline-offset:2px;}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);}
+/* Gleiche Inhaltsbreite wie in site-pages.css: Seitenabstand ausserhalb
+   des Containers, damit die vollen 1160px fuer den Inhalt bleiben. */
+.wrap{width:min(100% - 2 * var(--gut),var(--maxw));margin:0 auto;padding:0;}
 
 .disp{font-family:var(--disp);font-weight:400;text-transform:uppercase;
   line-height:.95;letter-spacing:.005em;text-wrap:balance;}
@@ -135,30 +137,6 @@ a{color:inherit;}
 .hero .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;}
 .hero .kicker{color:rgba(255,255,255,.9);margin-bottom:20px;}
 
-/* ===== NEWS-TICKER ===== */
-.ticker{display:flex;align-items:stretch;overflow:hidden;background:#15161a;color:var(--on-deep);
-  border-top:1px solid rgba(255,255,255,.09);border-bottom:1px solid rgba(255,255,255,.09);}
-.ticker-label{flex:0 0 auto;display:flex;align-items:center;margin:0;padding:0 20px;
-  background:var(--yellow);color:var(--yellow-ink);font:700 .72rem/1 var(--sans);
-  letter-spacing:.12em;text-transform:uppercase;}
-/* Die Maske laesst die Meldungen an beiden Raendern ausblenden statt hart abzuschneiden */
-.ticker-view{flex:1 1 auto;min-width:0;overflow:hidden;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 46px,#000 calc(100% - 46px),transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 46px,#000 calc(100% - 46px),transparent);}
-/* Die Liste enthaelt jede Meldung zweimal; -50% schiebt genau einen Satz weiter, dadurch nahtlos */
-.ticker-track{display:flex;width:max-content;margin:0;padding:0;list-style:none;
-  animation:ticker-run 53s linear infinite;}
-.ticker-track li{display:flex;align-items:center;padding:15px 0;white-space:nowrap;
-  font-size:1rem;color:rgba(242,242,242,.85);}
-.ticker-track li::after{content:"";flex:0 0 auto;width:5px;height:5px;margin:0 32px;
-  border-radius:50%;background:var(--yellow);opacity:.85;}
-.ticker-track b{margin-right:14px;color:#fff;font-weight:700;font-size:.8rem;
-  letter-spacing:.12em;text-transform:uppercase;}
-@keyframes ticker-run{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ticker:hover .ticker-track,.ticker:focus-within .ticker-track{animation-play-state:paused;}
-@media(max-width:720px){.ticker-label{padding:0 13px;font-size:.72rem;letter-spacing:.12em}
-  .ticker-track li{font-size:.9rem}.ticker-track li::after{margin:0 22px}}
-@media(prefers-reduced-motion:reduce){.ticker-track{animation:none}.ticker-view{overflow-x:auto}}
 /* ===== APPEAL BAR ===== */
 .appeal{background:var(--sunk);border-bottom:1px solid var(--line);}
 .appeal-in{display:grid;grid-template-columns:1.35fr 1fr;gap:44px;align-items:center;
@@ -253,15 +231,36 @@ a{color:inherit;}
   .stat:nth-child(2){border-right:0;}
   .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--line);}}
 
-/* ===== GALLERY ===== */
-.grid6{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-.grid6 figure{margin:0;overflow:hidden;}
-.grid6 img{width:100%;aspect-ratio:1/1;object-fit:cover;transition:transform .5s;}
-.grid6 figure:hover img{transform:scale(1.05);}
-.grid6 .w2{grid-column:span 2;}
-.grid6 .w2 img{aspect-ratio:2/1;}
-@media(max-width:760px){.grid6{grid-template-columns:repeat(2,1fr);}
-  .grid6 .w2{grid-column:span 2;}}
+/* ===== SPONSORS ===== */
+.sec.documentary{padding-bottom:64px;}
+.sponsors{background:var(--paper);color:var(--ink);padding:32px 0 56px;}
+.sponsor-filters{position:absolute;width:0;height:0;overflow:hidden;}
+.sponsors-inner{display:grid;grid-template-columns:320px minmax(0,1fr);align-items:center;gap:48px;}
+.sponsors .sec-head{margin-bottom:0;}
+.sponsor-logos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;
+  list-style:none;margin:0;padding:0;}
+.sponsor-logos li{display:flex;align-items:center;justify-content:center;min-height:100px;padding:12px 26px;}
+.sponsor-logos li+li{border-left:1px solid var(--line);}
+.sponsor-logos img{width:100%;max-width:250px;height:80px;object-fit:contain;
+  filter:url(#sponsor-dark-background);}
+.sponsor-logos .sponsor-eagles img{max-width:190px;}
+.sponsor-logos .sponsor-amka{grid-column:1 / -1;border-left:0;border-top:1px solid var(--line);
+  margin-top:18px;padding:24px 26px 0;}
+.sponsor-logos .sponsor-amka img{max-width:680px;width:100%;height:auto;
+  filter:url(#sponsor-red-on-dark);mix-blend-mode:screen;}
+@media(max-width:900px){
+  .sponsors-inner{grid-template-columns:1fr;gap:32px;}
+}
+@media(max-width:600px){
+  .sec.documentary{padding-bottom:44px;}
+  .sponsors{padding:24px 0 36px;}
+  .sponsor-logos{grid-template-columns:1fr;}
+  .sponsor-logos li{min-height:118px;padding:22px 28px;}
+  .sponsor-logos li+li{border-left:0;border-top:1px solid var(--line);}
+  .sponsor-logos img{max-width:250px;height:70px;}
+  .sponsor-logos .sponsor-eagles img{max-width:190px;}
+  .sponsor-logos .sponsor-amka{margin-top:0;padding:24px 0;}
+}
 
 /* ===== TIERS ===== */
 .tiers{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
@@ -333,7 +332,7 @@ a{color:inherit;}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
   .rv{opacity:1;transform:none;transition:none;}
-  .card:hover,.card:hover .ph img,.grid6 figure:hover img{transform:none;}
+  .card:hover,.card:hover .ph img{transform:none;}
 }
 
 /* ===== SOFT REFINEMENT =====
@@ -343,7 +342,7 @@ a{color:inherit;}
   --ink:#171717; --ink-2:#41413F; --muted:#6D6C68; --line:#DCDAD4;
   --red:#D91F2B; --red-hover:#B91420; --yellow:#F4C84A;
   --shadow:0 18px 48px -32px rgba(20,20,18,.34);
-  --maxw:1160px; --gut:clamp(20px,4vw,40px);
+  --maxw:1160px; --gut:24px;
 }
 :root[data-theme="light"]{
   --paper:#FAF9F6; --sunk:#F0EFEB; --card:#FFFFFF;
@@ -487,9 +486,6 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
 .act{padding:34px 30px;border:1px solid var(--line)!important;border-radius:6px;background:var(--card);}
 .act .n{font-size:2.3rem;color:var(--red);opacity:.9;}
 
-.grid6{gap:16px;}
-.grid6 figure{border-radius:6px;}
-.grid6 img{filter:saturate(.9);}
 .project-film{position:relative;margin:34px 0 18px;aspect-ratio:16/9;overflow:hidden;border-radius:8px;
   background:#090a0c;box-shadow:0 28px 70px -42px rgba(0,0,0,.65);}
 .project-film iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
@@ -519,12 +515,7 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
   .campaign-photo{width:100%;opacity:.42;}
   .appeal::before{background:linear-gradient(90deg,rgba(17,18,21,.97),rgba(17,18,21,.7)),
     linear-gradient(0deg,rgba(17,18,21,.85),transparent);}
-  /* .appeal-in setzt weiter oben padding:40px 0 — die Kurzform loescht die
-     seitliche Einrueckung, die .wrap auf demselben Element vorgibt. Auf dem
-     Desktop faellt das nicht auf, weil die Spalte ohnehin eingerueckt sitzt;
-     auf dem Telefon lief der Block randlos, und der Button war dadurch
-     breiter als die Buttons im Hero. Hier die Einrueckung zurueckholen. */
-  .appeal-in{padding-bottom:38px;padding-left:var(--gut);padding-right:var(--gut);}
+  .appeal-in{padding-bottom:38px;}
   .appeal-copy{margin-left:0;}
   .campaign-meta{flex-direction:row;}
   .campaign-meta p{width:auto;margin:0;flex:1 1 auto;}
@@ -657,32 +648,18 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
   .hero .inner{padding:56px 0 64px;}
 }
 
-/* ===== NEUIGKEITEN AUF DEM TELEFON UNTER DER KOPFZEILE =====
-   Auf dem Telefon steht das Band nicht hinter dem Hero, sondern direkt unter
-   der Kopfzeile, und bleibt beim Scrollen dort stehen.
-
-   Verschoben wird nur die Darstellung: main wird zur Flex-Spalte, das Band
-   bekommt order:-1 und rutscht damit vor den Hero. Im Dokument bleibt es an
-   seiner Stelle, Vorlesereihenfolge und Desktop-Ansicht aendern sich nicht.
-
-   top haengt an --kopf-h. Die Kopfzeile ist je nach Breite unterschiedlich
-   hoch (62, 84, 98px), ein fester Wert wuerde ueber- oder unterlappen —
-   deshalb misst ein kurzes Skript unten die tatsaechliche Hoehe. Der Wert
-   82px greift nur, falls das Skript nicht laeuft. */
-@media(max-width:720px){
-  main{display:flex;flex-direction:column;}
-  .ticker{order:-1;position:sticky;top:var(--kopf-h,82px);z-index:55;}
-  /* Das gelbe Feld faellt auf dem Telefon weg, der Lauftext beginnt am linken
-     Rand. Vorgelesen wird die Einordnung weiterhin: die Section traegt
-     aria-label="Neuigkeiten". */
-  .ticker-label{display:none;}
-  .ticker-view{padding-left:var(--gut);}
-  /* Etwas kleiner als vorher, aber bewusst nicht kleiner als 0.8rem —
-     darunter wird die laufende Schrift auf dem Telefon muehsam. */
-  .ticker-track li{font-size:.8rem;padding:10px 0;}
-  .ticker-track li::after{margin:0 18px;}
-  .ticker-track b{font-size:.72rem;margin-right:10px;}
+@media(max-width:380px){
+  .head-in{gap:10px;}
+  .head-nav .btn{font-size:.68rem;letter-spacing:.04em;padding:.7em .75em;}
 }
+/* Der duenne weisse Aussenring der Vorlage flimmert beim Verkleinern.
+   Die Maske endet im schwarzen Rand und glaettet die aeussere Kante. */
+.mark img,.foot-mark img{
+  -webkit-mask-image:radial-gradient(circle closest-side,#000 95%,transparent 98%);
+  mask-image:radial-gradient(circle closest-side,#000 95%,transparent 98%);
+}
+/* Entspricht dem mobilen Seitenabstand der Unterseiten. */
+@media(max-width:650px){:root{--gut:18px;}}
 </style>
 <link rel="stylesheet" href="donation-drawer.css">
 <link rel="icon" href="favicon.ico" sizes="any"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta property="og:type" content="website"><meta property="og:site_name" content="BK West United Foundation Germany e.V."><meta property="og:locale" content="de_DE"><meta property="og:title" content="BK West United Foundation Germany e.V. — Sport baut Brücken"><meta property="og:description" content="BK West United Foundation Germany e.V. – Sport, Bildung und Begegnung zwischen Frankfurt am Main und Bakoteh in Gambia."><meta property="og:image" content="https://bkwestunited.de/og-bild.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Zwei Jugendliche im Zweikampf auf dem Fußballplatz in Bakoteh, Gambia"><meta name="twitter:card" content="summary_large_image">
@@ -691,8 +668,8 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
 
 <header class="site-head">
   <div class="wrap head-in">
-    <a class="mark" href="#top">
-      <img src="wp-export/img/logo_inv.png" alt="">
+    <a class="mark" href="#top" aria-label="BK West United Foundation Germany e.V. – Startseite">
+      <img src="wp-export/img/logo.png" alt="" width="74" height="74">
       <span><b>BK West United<br>Foundation Germany e.V.</b></span>
     </a>
     <nav class="head-nav">
@@ -767,21 +744,6 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
   </section>
 
 
-  <!-- TICKER -->
-  <section class="ticker" aria-label="Neuigkeiten">
-    <p class="ticker-label">Neuigkeiten</p>
-    <div class="ticker-view">
-      <ul class="ticker-track">
-      <li><b>28.08.2026</b>Busprojekt bei 30 Prozent — 2.440 € von 8.000 € sind zusammen</li>
-      <li><b>19.08.2026</b>Girls Can Play startet mit 24 Spielerinnen in die neue Saison in Bakoteh</li>
-      <li><b>05.08.2026</b>Kooperation mit der Gambia Football Federation für zwei weitere Jahre verlängert</li>
-      <li aria-hidden="true"><b>28.08.2026</b>Busprojekt bei 30 Prozent — 2.440 € von 8.000 € sind zusammen</li>
-      <li aria-hidden="true"><b>19.08.2026</b>Girls Can Play startet mit 24 Spielerinnen in die neue Saison in Bakoteh</li>
-      <li aria-hidden="true"><b>05.08.2026</b>Kooperation mit der Gambia Football Federation für zwei weitere Jahre verlängert</li>
-      </ul>
-    </div>
-  </section>
-
   <!-- APPEAL -->
   <section class="appeal">
     <img class="campaign-photo" src="wp-export/img/kampagne-bus.jpg" alt="Kinder und Jugendliche am Bus des Fußballprojekts in Gambia">
@@ -838,7 +800,7 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
       </div>
       <div class="cards">
         <article class="card rv">
-          <div class="ph"><span class="tag">Akademie</span><img src="wp-export/img/g1.jpg" alt="Jugendliche der Akademie in Bakoteh"></div>
+          <div class="ph"><span class="tag">Akademie</span><img src="wp-export/img/g3.jpg" alt="Spieler von BK West United beim Training in Bakoteh"></div>
           <div class="body">
             <h3>BK West United FC</h3>
             <p>Die Akademie in Bakoteh verfolgt einen ganzheitlichen Ansatz: Sie unterstützt die sportliche wie die persönliche Entwicklung der Jugendlichen und ist stark in der Community verankert — durch Jugendprogramme, Schulkooperationen und Charity-Events.</p>
@@ -846,7 +808,7 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
           </div>
         </article>
         <article class="card rv">
-          <div class="ph"><span class="tag">Initiative</span><img src="wp-export/img/g3.jpg" alt="Spielerinnen des Girls-Can-Play-Programms"></div>
+          <div class="ph"><span class="tag">Initiative</span><img src="wp-export/img/girls-can-play.jpg" alt="Spielerinnen auf dem Fußballplatz hinter einem großen „Girls Can Play“-Banner" loading="lazy"></div>
           <div class="body">
             <h3>Girls Can Play</h3>
             <p>Mädchen und junge Frauen durch die Kraft des Fußballs stärken — und die geschlechtsspezifischen Ungleichheiten im Sport angehen, auf dem Platz wie in Führungspositionen. In Frankfurt haben wir Frauenfußball sichtbar gemacht.</p>
@@ -854,7 +816,7 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
           </div>
         </article>
         <article class="card rv">
-          <div class="ph"><span class="tag">Vision</span><img src="wp-export/img/g5.jpg" alt="Team der Foundation bei einem Projekt"></div>
+          <div class="ph"><span class="tag">Vision</span><img src="wp-export/img/g1.jpg" alt="Jugendliche mit dem Banner „Sport baut Brücken“ beim MTU Cup"></div>
           <div class="body">
             <h3>Katalysator der Veränderung</h3>
             <p>Ein multidisziplinäres Team, das die Bedingungen für die junge Generation in Gambia mithilfe des Sports zukunftssicherer gestaltet — und junge Menschen ermutigt, aktiv an ihrer Zukunft teilzunehmen.</p>
@@ -904,11 +866,11 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
     </div>
   </section>
 
-  <!-- GALLERY -->
-  <section class="sec">
+  <!-- DOCUMENTARY -->
+  <section class="sec documentary">
     <div class="wrap">
       <div class="sec-head rv">
-        <span class="kicker">Bildstrecke</span>
+        <span class="kicker">Dokumentation</span>
         <h2 class="disp">Aus unseren Sportprojekten</h2>
         <p>Eindrücke aus der Arbeit in Gambia und Frankfurt, unter anderem vom MTU Cup 2024.</p>
       </div>
@@ -918,14 +880,45 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
           <div class="media-placeholder-inner"><strong>Film ansehen</strong><p>Mit dem Laden des Videos stimmen Sie der Verbindung zu YouTube zu.</p><button class="btn enable-media" type="button">Video laden</button></div>
         </div>
       </div>
-      <div class="grid6 rv">
-        <figure class="w2"><img src="wp-export/img/hero2.jpg" alt="Freundschaftsspiel"></figure>
-        <figure><img src="wp-export/img/g2.jpg" alt="Aus der Projektarbeit"></figure>
-        <figure><img src="wp-export/img/g4.jpg" alt="Aus der Projektarbeit"></figure>
-        <figure><img src="wp-export/img/g6.jpg" alt="Aus der Projektarbeit"></figure>
-        <figure><img src="wp-export/img/g5.jpg" alt="Aus der Projektarbeit"></figure>
-        <figure class="w2"><img src="wp-export/img/hero1.jpg" alt="Freundschaftsspiel"></figure>
+    </div>
+  </section>
+
+  <!-- SPONSORS -->
+  <section class="sponsors" aria-labelledby="sponsors-title">
+    <!-- Die roten und goldenen Farbanteile bleiben unveraendert. Nur die
+         neutralen Bildanteile wechseln fuer den dunklen Hintergrund ihre
+         Helligkeit; die Originaldateien bleiben erhalten. -->
+    <svg class="sponsor-filters" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Die JPG-Vorlage hat einen weissen Hintergrund. Diese Abbildung
+             setzt Weiss auf Schwarz und Schwarz auf Weiss, waehrend Rot
+             rot bleibt. Screen blendet anschliessend den Hintergrund aus. -->
+        <filter id="sponsor-red-on-dark" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="0 0 -1 0 1  -1 0 0 0 1  -1 0 0 0 1  0 0 0 1 0"/>
+        </filter>
+        <filter id="sponsor-dark-background" color-interpolation-filters="sRGB">
+          <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  8 0 -8 0 0" result="brand-colors"/>
+          <feComposite in="SourceGraphic" in2="brand-colors" operator="in" result="color-original"/>
+          <feComponentTransfer in="SourceGraphic" result="light-neutral">
+            <feFuncR type="table" tableValues="1 0"/>
+            <feFuncG type="table" tableValues="1 0"/>
+            <feFuncB type="table" tableValues="1 0"/>
+          </feComponentTransfer>
+          <feComposite in="light-neutral" in2="brand-colors" operator="out" result="neutral-only"/>
+          <feComposite in="color-original" in2="neutral-only" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+        </filter>
+      </defs>
+    </svg>
+    <div class="wrap sponsors-inner">
+      <div class="sec-head">
+        <span class="kicker">Starke Unterstützung</span>
+        <h2 class="disp" id="sponsors-title">Unsere Sponsoren</h2>
       </div>
+      <ul class="sponsor-logos">
+        <li><img src="wp-export/img/partner/dietmar-buecher.png" alt="Dietmar Bücher – Schlüsselfertiges Bauen" loading="lazy"></li>
+        <li class="sponsor-eagles"><img src="wp-export/img/partner/efc-business-eagles.png" alt="EFC Business Eagles Frankfurt 1899" loading="lazy"></li>
+        <li class="sponsor-amka"><img src="wp-export/img/partner/amka-stadt-frankfurt.jpg" alt="Gefördert durch die Stadt Frankfurt am Main – Amt für multikulturelle Angelegenheiten" loading="lazy"></li>
+      </ul>
     </div>
   </section>
 
@@ -945,7 +938,7 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
             <li>Unterstützung der Sportprojekte</li>
             <li>Unterstützung der Kulturprojekte</li>
           </ul>
-          <a class="btn btn-line" href="https://pay.raisenow.io/sspgb?amount.default=5&amp;reference.campaign_id=mitgliedschaft-basis&amp;lng=de">Digital beantragen</a>
+          <a class="btn btn-line" href="https://pay.raisenow.io/sspgb?amount.default=5&amp;reference.campaign_id=mitgliedschaft-basis&amp;lng=de" target="_blank" rel="noopener noreferrer">Digital beantragen</a>
         </div>
         <div class="tier hi">
           <span class="kicker">Plus</span>
@@ -954,10 +947,10 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
             <li>Intensivere Förderung der Sport- und Kulturprojekte</li>
             <li>Early-Bird-Access zu Events in Deutschland</li>
           </ul>
-          <a class="btn btn-red" href="https://pay.raisenow.io/sspgb?amount.default=10&amp;reference.campaign_id=mitgliedschaft-plus&amp;lng=de">Digital beantragen</a>
+          <a class="btn btn-red" href="https://pay.raisenow.io/sspgb?amount.default=10&amp;reference.campaign_id=mitgliedschaft-plus&amp;lng=de" target="_blank" rel="noopener noreferrer">Digital beantragen</a>
         </div>
       </div>
-      <p class="fineprint">Die Mitgliedschaft beginnt mit der Annahme durch den Vorstand; eine schriftliche Bestätigung erfolgt per E-Mail. Eine Kündigung ist mit einer Frist von vier Wochen zum Quartal möglich — formlos per E-Mail an <a href="mailto:info@bkwestunited.de">info@bkwestunited.de</a>.</p>
+      <p class="fineprint">Eine Kündigung ist mit einer Frist von vier Wochen zum Quartal möglich — formlos per E-Mail an <a href="mailto:info@bkwestunited.de">info@bkwestunited.de</a>.</p>
       <p class="fineprint"><a class="btn btn-line" href="mitgliedschaft.html">Alle Angaben zur Mitgliedschaft</a></p>
     </div>
   </section>
@@ -1007,7 +1000,7 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
   <div class="wrap foot-grid">
     <div>
       <div class="foot-mark">
-        <img src="wp-export/img/logo_inv.png" alt="">
+        <img src="wp-export/img/logo.png" alt="" width="54" height="54">
         <b>BK West United<br>Foundation Germany e.V.</b>
       </div>
       <p class="foot-lead">Sport baut Brücken — für Integration, internationale Jugendbegegnung und echte Perspektiven zwischen Frankfurt und Gambia.</p>
@@ -1056,20 +1049,7 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
 </section>
 
 <script>
-/* Das Neuigkeiten-Band klebt auf dem Telefon direkt unter der Kopfzeile. Deren
-   Hoehe haengt von Breite, Schriftgroesse und aufgeklapptem Menue ab — sie
-   wird deshalb gemessen und als --kopf-h bereitgestellt, statt im CSS als
-   feste Zahl zu stehen. */
-(function(){
-  var kopf=document.querySelector('.site-head');
-  if(!kopf)return;
-  function setze(){
-    document.documentElement.style.setProperty('--kopf-h',kopf.offsetHeight+'px');
-  }
-  setze();
-  addEventListener('resize',setze);
-  if(window.ResizeObserver)new ResizeObserver(setze).observe(kopf);
-})();
+
 (function(){
   var els=document.querySelectorAll('.rv');
   if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
@@ -1193,7 +1173,7 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
     params.set('amount.default',data.get('amount'));
     params.set('reference.campaign_id',data.get('purpose'));
     params.set('reference.campaign_subid',data.get('rhythm'));params.set('lng','de');
-    window.location.assign('https://donate.raisenow.io/pyywg?'+params.toString());
+    window.open('https://donate.raisenow.io/pyywg?'+params.toString(),'_blank','noopener,noreferrer');
   });
 })();
 (function(){var drawer=document.getElementById('donation-drawer'),panel=document.getElementById('current-panel');if(!drawer||!panel)return;var toggle=drawer.querySelector('.current-tab'),form=drawer.querySelector('form'),donationToggle=drawer.querySelector('.donation-tab');function syncHeight(){if(!form.hidden)panel.style.minHeight=form.offsetHeight+'px'}syncHeight();window.addEventListener('resize',syncHeight);toggle.addEventListener('click',function(){toggle.classList.add('is-seen');var close=drawer.classList.contains('is-open')&&drawer.classList.contains('is-current');syncHeight();drawer.classList.toggle('is-open',!close);drawer.classList.toggle('is-current',!close);panel.hidden=close;form.hidden=!close;toggle.setAttribute('aria-expanded',String(!close));donationToggle.setAttribute('aria-expanded','false')});})();

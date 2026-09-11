@@ -18,6 +18,13 @@ Vor dem echten Start beides entfernen.
 
 ## Aktualisieren
 
+**Lokaler WordPress-Prüfstand:** Unter [wordpress/README.md](wordpress/README.md)
+liegt die Anleitung für die separate Testinstallation und den pixelgenauen
+Vergleich. Dafür sind die aktuellen HTML-Dateien in diesem Repository die
+Quelle. Die nachfolgende ältere Anleitung zum Neubau aus dem Arbeits-Repo
+kann die hier vorgenommenen Anpassungen überschreiben und gehört nicht zum
+WordPress-Prüfablauf. Der Prüfstand veröffentlicht nichts bei Strato.
+
 Im Arbeits-Repo den Auslieferungsordner neu bauen und den Inhalt hierher
 übernehmen:
 

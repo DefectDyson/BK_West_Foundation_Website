@@ -1,0 +1,51 @@
+name: bk-wordpress-preview
+services:
+  db:
+    image: mariadb:11.4@sha256:80494b9810694179889f7281ec44ca928241df577159c0356a1070e2e94616a1
+    environment:
+      MARIADB_DATABASE: bk_preview
+      MARIADB_USER: bk_preview
+      MARIADB_PASSWORD: ${BK_PREVIEW_DB_PASSWORD:?Set local DB password}
+      MARIADB_ROOT_PASSWORD: ${BK_PREVIEW_ROOT_PASSWORD:?Set local root password}
+    volumes:
+      - database:/var/lib/mysql
+    healthcheck:
+      test: [CMD, healthcheck.sh, --connect, --innodb_initialized]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  wordpress:
+    image: wordpress:php8.3-apache@sha256:5a93c470ae8220fddf71f6ebe3bc94e615ddc2ae4d9810f795b830fb11c41a17
+    networks:
+      - default
+      - browser
+    ports:
+      - '127.0.0.1:8766:80'
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: bk_preview
+      WORDPRESS_DB_USER: bk_preview
+      WORDPRESS_DB_PASSWORD: ${BK_PREVIEW_DB_PASSWORD}
+      BK_PREVIEW_ADMIN_PASSWORD: ${BK_PREVIEW_ADMIN_PASSWORD:?Set local admin password}
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_ENVIRONMENT_TYPE', 'local');
+        define('WP_HOME', 'http://localhost:8766');
+        define('WP_SITEURL', 'http://localhost:8766');
+        define('WP_HTTP_BLOCK_EXTERNAL', true);
+        define('AUTOMATIC_UPDATER_DISABLED', true);
+        define('DISABLE_WP_CRON', true);
+        define('DISALLOW_FILE_EDIT', true);
+    volumes:
+      - wordpress:/var/www/html
+      - ./build/bk-west-foundation:/var/www/html/wp-content/themes/bk-west-foundation:ro
+      - ./scripts/setup-local.php:/opt/bk-setup-local.php:ro
+networks:
+  default:
+    internal: true
+  browser:
+volumes:
+  database:
+  wordpress:

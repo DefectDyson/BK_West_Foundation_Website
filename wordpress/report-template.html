@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>BK West – lokaler WordPress-Vergleich</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#111214;color:#f1f0ec;font:16px/1.6 system-ui,sans-serif}main{max-width:1200px;margin:auto;padding:32px 24px}h1{font-size:clamp(26px,5vw,44px);line-height:1.15;margin:0 0 20px}a{color:#bcc7ff}p{max-width:850px}.meta{display:flex;gap:18px;flex-wrap:wrap;margin:24px 0}.metric{background:#202125;border:1px solid #393b42;border-radius:8px;padding:15px 22px}.metric b{display:block;font-size:30px;color:#f5cc50}label{display:inline-flex;gap:10px;align-items:center;margin:0 24px 20px 0}select{font:inherit;background:#24262b;color:#fff;border:1px solid #555;border-radius:5px;padding:8px}input{accent-color:#f5cc50}#issues{padding:16px 24px;background:#29251a;border-left:3px solid #f5cc50;margin-bottom:26px}.comparison{position:relative;max-width:100%;margin:auto;line-height:0;box-shadow:0 0 0 1px #555}.comparison img{display:block;width:100%;height:auto}.overlay{position:absolute;inset:0;clip-path:inset(0 50% 0 0)}.divider{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#f5cc50;pointer-events:none}.legend{display:flex;justify-content:space-between;margin:10px 0;color:#d0d1d6}small{display:block;color:#b5b5bd;margin-top:20px}
+</style></head><body><main>
+<h1>HTML und WordPress im direkten Vergleich</h1>
+<p>Dieser Prüfstand läuft ausschließlich lokal. Die Screenshots vergleichen dieselben Seiten im selben Chrome-Browser mit identischen Einstellungen. Die vorhandene Website bei Strato wurde nicht verändert.</p>
+<p><a href="http://localhost:8766/" target="_blank" rel="noopener">WordPress-Vorschau öffnen ↗</a> · <a href="http://localhost:8765/" target="_blank" rel="noopener">HTML-Vorlage öffnen ↗</a></p>
+<div class="meta"><div class="metric"><b id="count"></b>Seiten-/Breitenvergleiche</div><div class="metric"><b id="pixels"></b>abweichende Pixel</div><div class="metric"><b id="links"></b>geprüfte interne Links</div></div>
+<div id="issues" hidden></div>
+<p>Geprüft: Layout, Texte, Bilder und Schriften, Menüs, Spenden- und Aktuell-Panel, RaiseNow-Parameter und neuer Tab sowie Video-Einwilligung. Die eigentliche Zahlung und Video-Wiedergabe wurden nicht ausgeführt. Die Strato-Plugins und deren Einstellungen sind in dieser separaten WordPress-Installation noch nicht enthalten.</p>
+<label>Seite <select id="page"><option value="index">Startseite</option><option value="projekte">Projekte</option><option value="mitgliedschaft">Mitgliedschaft</option><option value="sponsoren">Sponsoren</option><option value="impressum">Impressum</option><option value="datenschutz">Datenschutz</option></select></label>
+<label>Fensterbreite <select id="width"><option>1440</option><option>1024</option><option>768</option><option>390</option><option>320</option></select></label>
+<label>Vergleich <input id="slider" type="range" min="0" max="100" value="50" aria-label="Anteil der HTML-Vorlage im Vergleich"></label>
+<div class="legend"><span>HTML-Vorlage</span><span>WordPress</span></div>
+<div class="comparison" id="comparison"><img id="wordpress" alt="Screenshot der lokalen WordPress-Seite"><div class="overlay" id="overlay"><img id="original" alt="Screenshot der ursprünglichen HTML-Seite"></div><div class="divider" id="divider"></div></div>
+<small>Der Schieberegler blendet zwischen den beiden unveränderten Screenshots um. Die Darstellung wird für dieses Vergleichsfenster verkleinert; geprüft wurden die Pixel in Originalgröße. Inhalte liegen in diesem ersten Theme-Prüfstand noch fest in den Vorlagen.</small>
+</main><script>
+const report=/*REPORT_DATA*/;
+const el=id=>document.getElementById(id);
+el('count').textContent=report.pageViewportComparisons;el('pixels').textContent=report.differentPixels;el('links').textContent=report.localLinksChecked;
+if(report.existingLayoutIssues.length){el('issues').hidden=false;el('issues').textContent='Bereits in der HTML-Vorlage vorhanden: '+report.existingLayoutIssues.map(x=>x.page+' bei '+x.viewport+' px: horizontaler Überlauf ('+x.scrollWidth+' px Inhaltsbreite)').join('; ')+'. Diese Befunde wurden originalgetreu übernommen und sind keine neuen WordPress-Abweichungen.';}
+function change(){const name=el('page').value+'-'+el('width').value;el('wordpress').src=name+'-wordpress.png';el('original').src=name+'-html.png';const size=report.pixelResults.find(r=>r.page===el('page').value&&String(r.width)===el('width').value).size;el('comparison').style.width=size[0]+'px';}
+el('page').onchange=change;el('width').onchange=change;el('slider').oninput=()=>{el('overlay').style.clipPath='inset(0 '+(100-el('slider').value)+'% 0 0)';el('divider').style.left=el('slider').value+'%';};change();
+</script></body></html>
