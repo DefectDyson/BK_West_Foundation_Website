@@ -446,7 +446,7 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
 .campaign-meter{position:relative;width:100%;height:18px;background:rgba(255,255,255,.18);overflow:hidden;}
 .campaign-meter i{position:absolute;inset:0 auto 0 0;width:0;display:block;background:var(--red);
   transition:width 2.4s cubic-bezier(.2,.72,.22,1);}
-.appeal.progress-in .campaign-meter i{width:30%;}
+.appeal.progress-in .campaign-meter i{width:var(--bkw-progress,30%);}
 .campaign-meter i::after{content:"";position:absolute;inset:0 0 0 auto;width:4px;background:#fff;opacity:.9;}
 
 .sec{padding:clamp(76px,9vw,112px) 0;}
@@ -758,7 +758,7 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
       </div>
     </div>
     <div class="wrap campaign-meta">
-      <p>Aktueller Stand · 2.440 € von 8.000 € finanziert</p>
+      <p>Stand 28.08.2026 · 2.440 € von 8.000 € finanziert</p>
       <span class="pct" data-target="30">0 %</span>
     </div>
     <div class="campaign-meter" role="progressbar" aria-label="Fortschritt des aktuellen Spendenprojekts" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30"><i></i></div>
@@ -1094,9 +1094,9 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
   var appeal=document.querySelector('.appeal');
   if(!appeal)return;
   var value=appeal.querySelector('.pct');
-  var target=Number(value.getAttribute('data-target'))||35;
+  function target(){return Number(value.getAttribute('data-target'))||0;}
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function finish(){value.textContent=target+' %';appeal.classList.add('progress-in');}
+  function finish(){value.textContent=target()+' %';appeal.classList.add('progress-in');}
   function start(){
     if(appeal.classList.contains('progress-in'))return;
     if(reduce){finish();return;}
@@ -1105,8 +1105,8 @@ body{font-size:16px;line-height:1.72;letter-spacing:.003em;}
     function count(now){
       var progress=Math.min(1,(now-begun)/duration);
       var eased=1-Math.pow(1-progress,3);
-      value.textContent=Math.round(target*eased)+' %';
-      if(progress<1)requestAnimationFrame(count);else value.textContent=target+' %';
+      value.textContent=Math.round(target()*eased)+' %';
+      if(progress<1)requestAnimationFrame(count);else value.textContent=target()+' %';
     }
     requestAnimationFrame(count);
   }

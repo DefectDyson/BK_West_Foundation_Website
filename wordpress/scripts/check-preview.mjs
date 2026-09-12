@@ -31,7 +31,9 @@ const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 await send('Page.enable'); await send('Runtime.enable'); await send('Network.enable');
 await send('Network.setCacheDisabled',{cacheDisabled:true});
 // External payment and media providers are never contacted during this test.
-await send('Network.setBlockedURLs',{urls:['*raisenow.io/*','*youtube*','*google*','*paypal*','*betterplace.org/*','*s.w.org/*']});
+// Keep the dated static snapshot for the pixel comparison. The automatic
+// project updates are covered separately by check-bus-project.mjs.
+await send('Network.setBlockedURLs',{urls:['*raisenow.io/*','*youtube*','*google*','*paypal*','*betterplace.org/*','*s.w.org/*','*/bus-project.js*']});
 await send('Page.addScriptToEvaluateOnNewDocument',{source:`
   window.__opened=[];
   window.open=(...args)=>{window.__opened.push(args);return null;};

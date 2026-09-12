@@ -104,6 +104,53 @@ ist im lokalen Container eingebunden. Die ZIP-Datei unter
 `wordpress/build/bk-west-foundation.zip` ist ein **Prüfstand**, keine Freigabe
 zum Aktivieren auf der bestehenden Website.
 
+## Automatischer Spendenstand (Theme 0.2.1)
+
+WordPress ruft die öffentliche Betterplace-API für Projekt **184020** auf.
+Die Anzeige übernimmt Betrag, Gesamtziel (gespendet plus offen), Restbetrag,
+bestätigte Spendenanzahl, Prozentsatz und Projektstatus. Sie erscheint im
+Aktuell-Panel, auf dem Spendenbalken der Startseite und in der Bus-Karte auf
+der Projekte-Seite. Version 0.2.1 ergänzt die zuvor fehlende Bus-Karte.
+
+Der erste Seitenaufruf lädt die Daten über `/wp-json/bkw/v1/bus-project`.
+Erfolgreiche Abrufe werden serverseitig 15 Minuten gespeichert. Bei sichtbarer
+Seite fragt der Browser ungefähr alle 15 Minuten erneut an; nach der Rückkehr
+zu einem alten Tab wird ebenfalls aktualisiert. Ohne Besucher sind keine
+regelmäßigen Abrufe nötig. Der Browser verbindet sich dabei nur mit WordPress;
+Betterplace wird vom Server aufgerufen, ohne Zugangsdaten oder Besucherdaten.
+
+Bei Ausfällen bleibt der letzte erfolgreiche Stand einschließlich Abrufzeit
+erhalten und erhält einen Hinweis. Ohne erfolgreichen Abruf bleibt der klar
+datierte Stand aus der HTML-Vorlage sichtbar. Wiederholungsversuche sind auf
+einmal pro Minute begrenzt. Geschlossene oder gesperrte Projekte zeigen einen
+Link zur Projektinformation statt einer Spendenaufforderung. „Spendenziel
+erreicht“ wird vom Status „Spendenaktion beendet“ unterschieden.
+
+Die API-Route darf nicht durch ein Cache-Plugin oder CDN zwischengespeichert
+werden. Der Endpoint sendet dafür `Cache-Control: no-store`. Die lokale
+Testinstallation blockiert externe HTTP-Anfragen weiterhin; der folgende Test
+verwendet simulierte Betterplace-Antworten und sendet keine externen Anfragen:
+
+```sh
+python3 wordpress/scripts/build_theme.py
+docker compose --env-file /tmp/bk-wordpress-preview/local.env -f wordpress/compose.yml exec -T --user www-data wordpress php < wordpress/scripts/check-bus-project.php
+node wordpress/scripts/check-bus-project.mjs
+```
+
+Für den Browser-Test muss Chrome wie oben mit Port 9223 laufen. Er prüft die
+vier Seiten mit Aktuell-Panel auf Desktop und Mobilgerät, Centbeträge,
+0/100-Prozent-Animation, Projektstatus und Ausfälle mit simulierten Antworten.
+Der bestehende Pixelvergleich sperrt dieses zusätzliche Skript gezielt, damit
+er weiterhin den statischen Ausgangsstand vergleicht.
+
+**Installation des Updates:** `wordpress/build/bk-west-foundation.zip` unter
+Design → Themes → Theme hinzufügen → Theme hochladen auswählen und die
+installierte Version durch die hochgeladene Version ersetzen. Die bereits
+angelegten Seiten und ihre Vorlagenzuordnungen bleiben dabei bestehen.
+Das Anwendungspasswort kann Theme-Dateien über die normale WordPress-REST-API
+nicht ersetzen. Nach dem Upload auf der öffentlichen Website den Spendenstand
+und `/wp-json/bkw/v1/bus-project` prüfen.
+
 ## Stoppen
 
 ```sh

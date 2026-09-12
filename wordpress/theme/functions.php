@@ -1,6 +1,8 @@
 <?php
 defined('ABSPATH') || exit;
 
+require_once __DIR__ . '/bus-project.php';
+
 /** Resolve site links through WordPress, including subdirectory installations. */
 function bkw_page_url($key) {
     if ($key === 'index') {
